@@ -31,7 +31,6 @@ struct HNewsAPI {
         return URLSession.shared.dataTaskPublisher(for: itemUrl)
             .map(\.data)
             .decode(type: YNItem.self, decoder: JSONDecoder())
-            .print()
             .eraseToAnyPublisher()
     }
     
@@ -60,7 +59,7 @@ extension HNewsAPI {
             .map(\.data)
             .decode(type: [Int].self, decoder: JSONDecoder())
             .flatMap({ ids in
-                return mergeItems(ids: ids)
+                return mergeItems(ids: Array(ids.prefix(20)))
             })
             .collect()
             .eraseToAnyPublisher()

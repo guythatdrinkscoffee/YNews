@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		BE3853B62995D0490068EE33 /* HNewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853B52995D0490068EE33 /* HNewsAPI.swift */; };
+		BE3853B92995FF1A0068EE33 /* YNPostsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853B82995FF1A0068EE33 /* YNPostsService.swift */; };
+		BE3853BD299601370068EE33 /* YNItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853BC299601370068EE33 /* YNItemCell.swift */; };
+		BE3853C0299608780068EE33 /* YNActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853BF299608780068EE33 /* YNActivityIndicatorView.swift */; };
 		BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */; };
 		BEEBFB322995B8AE00FAD75B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB312995B8AE00FAD75B /* SceneDelegate.swift */; };
 		BEEBFB342995B8AE00FAD75B /* YNRootTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB332995B8AE00FAD75B /* YNRootTabScreen.swift */; };
@@ -20,6 +23,9 @@
 
 /* Begin PBXFileReference section */
 		BE3853B52995D0490068EE33 /* HNewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNewsAPI.swift; sourceTree = "<group>"; };
+		BE3853B82995FF1A0068EE33 /* YNPostsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNPostsService.swift; sourceTree = "<group>"; };
+		BE3853BC299601370068EE33 /* YNItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNItemCell.swift; sourceTree = "<group>"; };
+		BE3853BF299608780068EE33 /* YNActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNActivityIndicatorView.swift; sourceTree = "<group>"; };
 		BEEBFB2C2995B8AE00FAD75B /* YNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEEBFB312995B8AE00FAD75B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +57,39 @@
 			name = " Networking";
 			sourceTree = "<group>";
 		};
+		BE3853B72995FF040068EE33 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BE3853B82995FF1A0068EE33 /* YNPostsService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		BE3853BA2996011B0068EE33 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE3853BE299608630068EE33 /* Custom */,
+				BE3853BB299601230068EE33 /* TableView */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		BE3853BB299601230068EE33 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				BE3853BC299601370068EE33 /* YNItemCell.swift */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		BE3853BE299608630068EE33 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				BE3853BF299608780068EE33 /* YNActivityIndicatorView.swift */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
 		BEEBFB232995B8AE00FAD75B = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +109,8 @@
 		BEEBFB2E2995B8AE00FAD75B /* YNews */ = {
 			isa = PBXGroup;
 			children = (
+				BE3853BA2996011B0068EE33 /* Views */,
+				BE3853B72995FF040068EE33 /* Services */,
 				BE3853B42995D0350068EE33 /*  Networking */,
 				BEEBFB4E2995CCE100FAD75B /* Data */,
 				BEEBFB462995C2EA00FAD75B /* Screens */,
@@ -186,7 +227,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3853B92995FF1A0068EE33 /* YNPostsService.swift in Sources */,
 				BEEBFB342995B8AE00FAD75B /* YNRootTabScreen.swift in Sources */,
+				BE3853C0299608780068EE33 /* YNActivityIndicatorView.swift in Sources */,
+				BE3853BD299601370068EE33 /* YNItemCell.swift in Sources */,
 				BEEBFB4A2995C67A00FAD75B /* YNShowcaseScreen.swift in Sources */,
 				BEEBFB482995C66B00FAD75B /* YNPostsScreen.swift in Sources */,
 				BE3853B62995D0490068EE33 /* HNewsAPI.swift in Sources */,
