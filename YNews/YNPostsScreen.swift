@@ -26,6 +26,7 @@ class YNPostsScreen: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.register(YNItemCell.self, forCellReuseIdentifier: YNItemCell.resueIdentifer)
+        tableView.rowHeight = 95
         return tableView
     }()
     
@@ -43,10 +44,7 @@ class YNPostsScreen: UIViewController {
         
         // loading state
         activityView.start()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        
         
         postsCancellable = postsService
             .newStories()
@@ -55,7 +53,6 @@ class YNPostsScreen: UIViewController {
                 self.activityView.stop()
             }, receiveValue: { posts in
                 self.posts = posts
-                print(posts.last!)
             })
     }
 }
@@ -99,8 +96,9 @@ extension YNPostsScreen: UITableViewDataSource {
             fatalError("Failed to dequeue cell")
         }
         
-        let item = posts[indexPath.row]
-        cell.configure(with: item)
+        let row = indexPath.row
+        let item = posts[row]
+        cell.configure(with: item, pos: row)
         return cell
     }
 }

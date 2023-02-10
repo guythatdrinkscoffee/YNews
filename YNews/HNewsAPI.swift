@@ -59,7 +59,7 @@ extension HNewsAPI {
             .map(\.data)
             .decode(type: [Int].self, decoder: JSONDecoder())
             .flatMap({ ids in
-                return mergeItems(ids: Array(ids.prefix(20)))
+                return mergeItems(ids: Array(ids.prefix(50)))
             })
             .collect()
             .eraseToAnyPublisher()

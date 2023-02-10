@@ -28,3 +28,18 @@ struct YNItem: Codable {
         case text, parent, kids, url, score, title, descendents
     }
 }
+
+extension YNItem {
+    var host: String? {
+        if let urlString = url, let components = URLComponents(string: urlString) {
+            return components.host
+        }
+        
+        return "n/a"
+    }
+    
+    var relativeTime: String {
+        let date = Date(timeIntervalSince1970: timeStamp)
+        return date.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
+    }
+}
