@@ -49,45 +49,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BE3853B42995D0350068EE33 /*  Networking */ = {
+		BE3853C12996F30C0068EE33 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */,
+				BEEBFB312995B8AE00FAD75B /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		BE3853C22996F3170068EE33 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				BE3853B52995D0490068EE33 /* HNewsAPI.swift */,
 			);
-			name = " Networking";
+			path = Networking;
 			sourceTree = "<group>";
 		};
-		BE3853B72995FF040068EE33 /* Services */ = {
+		BE3853C32996F32A0068EE33 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEEBFB4F2995CCEC00FAD75B /* YNItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BE3853C42996F3340068EE33 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				BEEBFB332995B8AE00FAD75B /* YNRootTabScreen.swift */,
+				BEEBFB472995C66B00FAD75B /* YNPostsScreen.swift */,
+				BEEBFB492995C67A00FAD75B /* YNShowcaseScreen.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		BE3853C52996F3410068EE33 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE3853BF299608780068EE33 /* YNActivityIndicatorView.swift */,
+				BE3853BC299601370068EE33 /* YNItemCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BE3853C62996F35C0068EE33 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				BE3853B82995FF1A0068EE33 /* YNPostsService.swift */,
 			);
-			name = Services;
-			sourceTree = "<group>";
-		};
-		BE3853BA2996011B0068EE33 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				BE3853BE299608630068EE33 /* Custom */,
-				BE3853BB299601230068EE33 /* TableView */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		BE3853BB299601230068EE33 /* TableView */ = {
-			isa = PBXGroup;
-			children = (
-				BE3853BC299601370068EE33 /* YNItemCell.swift */,
-			);
-			name = TableView;
-			sourceTree = "<group>";
-		};
-		BE3853BE299608630068EE33 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				BE3853BF299608780068EE33 /* YNActivityIndicatorView.swift */,
-			);
-			name = Custom;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		BEEBFB232995B8AE00FAD75B = {
@@ -109,12 +120,12 @@
 		BEEBFB2E2995B8AE00FAD75B /* YNews */ = {
 			isa = PBXGroup;
 			children = (
-				BE3853BA2996011B0068EE33 /* Views */,
-				BE3853B72995FF040068EE33 /* Services */,
-				BE3853B42995D0350068EE33 /*  Networking */,
-				BEEBFB4E2995CCE100FAD75B /* Data */,
-				BEEBFB462995C2EA00FAD75B /* Screens */,
-				BEEBFB452995B8C700FAD75B /* App */,
+				BE3853C62996F35C0068EE33 /* Services */,
+				BE3853C52996F3410068EE33 /* Views */,
+				BE3853C42996F3340068EE33 /* Screens */,
+				BE3853C32996F32A0068EE33 /* Models */,
+				BE3853C22996F3170068EE33 /* Networking */,
+				BE3853C12996F30C0068EE33 /* Application */,
 				BEEBFB442995B8C200FAD75B /* Support */,
 			);
 			path = YNews;
@@ -128,33 +139,6 @@
 				BEEBFB3D2995B8AE00FAD75B /* Info.plist */,
 			);
 			name = Support;
-			sourceTree = "<group>";
-		};
-		BEEBFB452995B8C700FAD75B /* App */ = {
-			isa = PBXGroup;
-			children = (
-				BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */,
-				BEEBFB312995B8AE00FAD75B /* SceneDelegate.swift */,
-			);
-			name = App;
-			sourceTree = "<group>";
-		};
-		BEEBFB462995C2EA00FAD75B /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				BEEBFB332995B8AE00FAD75B /* YNRootTabScreen.swift */,
-				BEEBFB472995C66B00FAD75B /* YNPostsScreen.swift */,
-				BEEBFB492995C67A00FAD75B /* YNShowcaseScreen.swift */,
-			);
-			name = Screens;
-			sourceTree = "<group>";
-		};
-		BEEBFB4E2995CCE100FAD75B /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				BEEBFB4F2995CCEC00FAD75B /* YNItem.swift */,
-			);
-			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
