@@ -22,7 +22,7 @@ class YNItemCell: UITableViewCell {
     
     private lazy var titleLabel : UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     

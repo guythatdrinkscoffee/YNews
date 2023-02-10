@@ -25,9 +25,23 @@ class YNPostsScreen: UIViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(YNItemCell.self, forCellReuseIdentifier: YNItemCell.resueIdentifer)
         tableView.rowHeight = 95
         return tableView
+    }()
+    
+    private lazy var titleViewButton : UIButton = {
+        var config = UIButton.Configuration.borderless()
+        config.title = "New"
+        config.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
+        config.imagePadding = 5
+        config.imagePlacement = .trailing
+        
+        let button = UIButton(configuration: config)
+        button.showsMenuAsPrimaryAction = true
+        button.menu = configureTitleViewMenu()
+        return button
     }()
     
     private let activityView = YNActivityIndicatorView()
@@ -38,7 +52,7 @@ class YNPostsScreen: UIViewController {
 
         // configuration
         configureViewController()
-        
+        configureNavigationBar()
         // layout
         layoutPostsTableView()
         
@@ -61,6 +75,26 @@ class YNPostsScreen: UIViewController {
 extension YNPostsScreen {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.titleView = titleViewButton
+    }
+    
+    private func configureTitleViewMenu() -> UIMenu {
+        let newStories = UIAction(title: "New", image: UIImage(systemName: "wand.and.stars")) { _ in
+            
+        }
+        
+        let topStories = UIAction(title: "Top", image: UIImage(systemName: "chart.line.uptrend.xyaxis")) { _ in
+            
+        }
+        
+        let bestStories = UIAction(title: "Best", image: UIImage(systemName: "star")) { _ in
+            
+        }
+        
+        return UIMenu(children: [newStories, topStories, bestStories])
     }
 }
 
@@ -100,5 +134,12 @@ extension YNPostsScreen: UITableViewDataSource {
         let item = posts[row]
         cell.configure(with: item, pos: row)
         return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension YNPostsScreen: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
