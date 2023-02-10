@@ -14,6 +14,7 @@
 		BEEBFB3C2995B8AE00FAD75B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEEBFB3A2995B8AE00FAD75B /* LaunchScreen.storyboard */; };
 		BEEBFB482995C66B00FAD75B /* PostsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB472995C66B00FAD75B /* PostsScreen.swift */; };
 		BEEBFB4A2995C67A00FAD75B /* ShowcaseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB492995C67A00FAD75B /* ShowcaseScreen.swift */; };
+		BEEBFB502995CCEC00FAD75B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB4F2995CCEC00FAD75B /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		BEEBFB3D2995B8AE00FAD75B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEEBFB472995C66B00FAD75B /* PostsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsScreen.swift; sourceTree = "<group>"; };
 		BEEBFB492995C67A00FAD75B /* ShowcaseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseScreen.swift; sourceTree = "<group>"; };
+		BEEBFB4F2995CCEC00FAD75B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		BEEBFB2E2995B8AE00FAD75B /* YNews */ = {
 			isa = PBXGroup;
 			children = (
+				BEEBFB4E2995CCE100FAD75B /* Data */,
 				BEEBFB462995C2EA00FAD75B /* Screens */,
 				BEEBFB452995B8C700FAD75B /* App */,
 				BEEBFB442995B8C200FAD75B /* Support */,
@@ -92,6 +95,14 @@
 				BEEBFB492995C67A00FAD75B /* ShowcaseScreen.swift */,
 			);
 			name = Screens;
+			sourceTree = "<group>";
+		};
+		BEEBFB4E2995CCE100FAD75B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BEEBFB4F2995CCEC00FAD75B /* Item.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +179,7 @@
 				BEEBFB4A2995C67A00FAD75B /* ShowcaseScreen.swift in Sources */,
 				BEEBFB482995C66B00FAD75B /* PostsScreen.swift in Sources */,
 				BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */,
+				BEEBFB502995CCEC00FAD75B /* Item.swift in Sources */,
 				BEEBFB322995B8AE00FAD75B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
