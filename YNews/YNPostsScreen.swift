@@ -1,24 +1,29 @@
 //
-//  ShowcaseScreen.swift
+//  PostsScreen.swift
 //  YNews
 //
 //  Created by J Manuel Zaragoza on 2/9/23.
 //
 
 import UIKit
+import Combine
 
-class ShowcaseScreen: UIViewController {
-
+class YNPostsScreen: UIViewController {
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // configuration
         configureViewController()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
 }
 
 // MARK: - Configuration
-extension ShowcaseScreen {
+extension YNPostsScreen {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
     }

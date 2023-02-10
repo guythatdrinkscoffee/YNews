@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Item: Codable {
+struct YNItem: Codable {
     let id: Int
     let type: String? // Type of item "post", "poll", "comment", "poll"
     let author: String? // Username of the user that posted the item
@@ -27,6 +27,4 @@ struct Item: Codable {
         case timeStamp = "time"
         case text, parent, kids, url, score, title, descendents
     }
-    
-    
 }

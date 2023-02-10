@@ -1,5 +1,5 @@
 //
-//  PostsScreen.swift
+//  ShowcaseScreen.swift
 //  YNews
 //
 //  Created by J Manuel Zaragoza on 2/9/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PostsScreen: UIViewController {
+class YNShowcaseScreen: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,7 @@ class PostsScreen: UIViewController {
 }
 
 // MARK: - Configuration
-extension PostsScreen {
+extension YNShowcaseScreen {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
     }
