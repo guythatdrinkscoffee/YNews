@@ -13,10 +13,14 @@ struct HNewsAPI {
     
     private  enum Endpoints {
         case newStories
+        case topStories
+        case bestStories
         case item(Int)
         var url: URL? {
             switch self {
             case .newStories: return HNewsAPI.baseUrl?.appendingPathComponent("/newstories.json")
+            case .topStories: return HNewsAPI.baseUrl?.appendingPathComponent("/topstories.json")
+            case .bestStories: return HNewsAPI.baseUrl?.appendingPathComponent("/beststories.json")
             case .item(let id): return HNewsAPI.baseUrl?.appending(path: "/item/\(id).json")
             }
         }
@@ -51,8 +55,7 @@ struct HNewsAPI {
 extension HNewsAPI {
     public func fetchNewStories() -> AnyPublisher<[YNItem], Error> {
         guard let newStoriesUrl = Endpoints.newStories.url else {
-            return Fail(error: URLError(.badURL))
-                .eraseToAnyPublisher()
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
         return URLSession.shared.dataTaskPublisher(for: newStoriesUrl)
@@ -60,6 +63,37 @@ extension HNewsAPI {
             .decode(type: [Int].self, decoder: JSONDecoder())
             .flatMap({ ids in
                 return mergeItems(ids: Array(ids.prefix(50)))
+            })
+            .collect()
+            .eraseToAnyPublisher()
+    }
+
+    public func fetchTopStories() -> AnyPublisher<[YNItem], Error> {
+        guard let topStoriesUrl = Endpoints.topStories.url else {
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: topStoriesUrl)
+            .map(\.data)
+            .decode(type: [Int].self, decoder: JSONDecoder())
+            .flatMap ({ topStoryIds in
+                return mergeItems(ids: Array(topStoryIds.prefix(50)))
+            })
+            .collect()
+            .eraseToAnyPublisher()
+    }
+    
+    
+    public func fetchBestStories() -> AnyPublisher<[YNItem], Error> {
+        guard let topStoriesUrl = Endpoints.bestStories.url else {
+            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: topStoriesUrl)
+            .map(\.data)
+            .decode(type: [Int].self, decoder: JSONDecoder())
+            .flatMap ({ bestStoryIds in
+                return mergeItems(ids: Array(bestStoryIds.prefix(50)))
             })
             .collect()
             .eraseToAnyPublisher()

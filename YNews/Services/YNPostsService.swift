@@ -20,4 +20,12 @@ final class YNPostsService {
     public func newStories() -> AnyPublisher<[YNItem], Error> {
         return api.fetchNewStories()
     }
+    
+    public func topStories() -> AnyPublisher<[YNItem], Error> {
+        return api.fetchTopStories()
+    }
+    
+    public func bestStories() -> AnyPublisher<[YNItem], Error> {
+        return api.fetchBestStories()
+    }
 }
