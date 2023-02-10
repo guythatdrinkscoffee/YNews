@@ -12,6 +12,8 @@
 		BEEBFB342995B8AE00FAD75B /* RootTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB332995B8AE00FAD75B /* RootTabScreen.swift */; };
 		BEEBFB392995B8AE00FAD75B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEEBFB382995B8AE00FAD75B /* Assets.xcassets */; };
 		BEEBFB3C2995B8AE00FAD75B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEEBFB3A2995B8AE00FAD75B /* LaunchScreen.storyboard */; };
+		BEEBFB482995C66B00FAD75B /* PostsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB472995C66B00FAD75B /* PostsScreen.swift */; };
+		BEEBFB4A2995C67A00FAD75B /* ShowcaseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB492995C67A00FAD75B /* ShowcaseScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		BEEBFB382995B8AE00FAD75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEEBFB3B2995B8AE00FAD75B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BEEBFB3D2995B8AE00FAD75B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEEBFB472995C66B00FAD75B /* PostsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsScreen.swift; sourceTree = "<group>"; };
+		BEEBFB492995C67A00FAD75B /* ShowcaseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowcaseScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				BEEBFB332995B8AE00FAD75B /* RootTabScreen.swift */,
+				BEEBFB472995C66B00FAD75B /* PostsScreen.swift */,
+				BEEBFB492995C67A00FAD75B /* ShowcaseScreen.swift */,
 			);
 			name = Screens;
 			sourceTree = "<group>";
@@ -159,6 +165,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEEBFB342995B8AE00FAD75B /* RootTabScreen.swift in Sources */,
+				BEEBFB4A2995C67A00FAD75B /* ShowcaseScreen.swift in Sources */,
+				BEEBFB482995C66B00FAD75B /* PostsScreen.swift in Sources */,
 				BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */,
 				BEEBFB322995B8AE00FAD75B /* SceneDelegate.swift in Sources */,
 			);
