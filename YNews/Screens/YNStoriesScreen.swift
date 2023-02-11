@@ -8,19 +8,19 @@
 import UIKit
 import Combine
 
-class YNPostsScreen: UIViewController {
+class YNStoriesScreen: UIViewController {
     // MARK: - Properties
-    private let postsService = YNPostsService()
+    private let storiesService = YNStoriesService()
     
-    private var postsCancellable: AnyCancellable?
+    private var storiesCancellable: AnyCancellable?
     
-    private var posts: [YNItem] = [] {
+    private var stories: [YNItem] = [] {
         didSet {
-            postsTableView.reloadData()
+            storiesTableView.reloadData()
         }
     }
     
-    private enum PostsType {
+    private enum StoriesType {
         case new
         case top
         case best
@@ -33,8 +33,9 @@ class YNPostsScreen: UIViewController {
             }
         }
     }
+    
     // MARK: - UI
-    private lazy var postsTableView : UITableView = {
+    private lazy var storiesTableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
@@ -75,7 +76,7 @@ class YNPostsScreen: UIViewController {
 }
 
 // MARK: - Configuration
-extension YNPostsScreen {
+extension YNStoriesScreen {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
     }
@@ -102,17 +103,17 @@ extension YNPostsScreen {
 }
 
 // MARK: - Layout
-extension YNPostsScreen {
+extension YNStoriesScreen {
     private func layoutPostsTableView() {
-        view.addSubview(postsTableView)
+        view.addSubview(storiesTableView)
         
-        postsTableView.addSubview(activityView)
+        storiesTableView.addSubview(activityView)
         
         NSLayoutConstraint.activate([
-            postsTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            postsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            postsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            postsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            storiesTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            storiesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            storiesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            storiesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -123,52 +124,52 @@ extension YNPostsScreen {
 }
 
 // MARK: - Methods
-extension YNPostsScreen {
-    private func fetchPosts(from type: PostsType) {
+extension YNStoriesScreen {
+    private func fetchPosts(from type: StoriesType) {
         // Cancel the posts cancellable in case the state is in mid fetch
-        postsCancellable?.cancel()
+        storiesCancellable?.cancel()
         
         // start the activity view indicator animation
         activityView.start()
         
         // clear the posts
-        posts.removeAll()
+        stories.removeAll()
         
         // update the navigation bar title view
         updateNavigationTitle(with: type)
         
         switch type {
         case .new:
-            postsCancellable = postsService
+            storiesCancellable = storiesService
                 .newStories()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     self.activityView.stop()
                 }, receiveValue: { posts in
-                    self.posts = posts
+                    self.stories = posts
                 })
         case .top:
-            postsCancellable = postsService
+            storiesCancellable = storiesService
                 .topStories()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     self.activityView.stop()
                 }, receiveValue: { posts in
-                    self.posts = posts
+                    self.stories = posts
                 })
         case .best:
-            postsCancellable = postsService
+            storiesCancellable = storiesService
                 .bestStories()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     self.activityView.stop()
                 }, receiveValue: { posts in
-                    self.posts = posts
+                    self.stories = posts
                 })
         }
     }
     
-    private func updateNavigationTitle(with type: PostsType) {
+    private func updateNavigationTitle(with type: StoriesType) {
         titleViewButton.configurationUpdateHandler = { button in
             var config = button.configuration
             config?.title = type.name
@@ -181,9 +182,9 @@ extension YNPostsScreen {
 }
 
 // MARK: - UITableViewDataSource
-extension YNPostsScreen: UITableViewDataSource {
+extension YNStoriesScreen: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return stories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -192,15 +193,19 @@ extension YNPostsScreen: UITableViewDataSource {
         }
         
         let row = indexPath.row
-        let item = posts[row]
+        let item = stories[row]
         cell.configure(with: item, pos: row)
         return cell
     }
 }
 
 // MARK: - UITableViewDelegate
-extension YNPostsScreen: UITableViewDelegate {
+extension YNStoriesScreen: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let selectedStory = stories[indexPath.row]
+        let storyDetail = YNStoryDetailScreen(story: selectedStory)
+        navigationController?.pushViewController(storyDetail, animated: true)
     }
 }

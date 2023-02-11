@@ -29,8 +29,8 @@ extension YNRootTabScreen {
     }
     
     private func makePostsScreen() -> UINavigationController {
-        let postsScreen = YNPostsScreen()
-        postsScreen.tabBarItem = UITabBarItem(title: "Posts", image: UIImage(systemName: "newspaper"), tag: 0)
+        let postsScreen = YNStoriesScreen()
+        postsScreen.tabBarItem = UITabBarItem(title: "Stories", image: UIImage(systemName: "newspaper"), tag: 0)
         let containerNav = UINavigationController(rootViewController: postsScreen)
         return containerNav
     }

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class YNPostsService {
+final class YNStoriesService {
     // MARK: - Private Properities
     private var api: HNewsAPI
 

@@ -5,12 +5,11 @@
 //  Created by J Manuel Zaragoza on 2/9/23.
 //
 
-import Foundation
-
+import UIKit
 
 struct YNItem: Codable {
     let id: Int
-    let type: String? // Type of item "post", "poll", "comment", "poll"
+    let type: String? // Type of item "job", "poll", "comment", "poll"
     let author: String? // Username of the user that posted the item
     let timeStamp: TimeInterval // UNIX Time
     let text: String? // HTML
@@ -35,11 +34,37 @@ extension YNItem {
             return components.host
         }
         
-        return "n/a"
+        return ""
     }
     
     var relativeTime: String {
         let date = Date(timeIntervalSince1970: timeStamp)
         return date.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
+    }
+    
+    var link: URL? {
+        if let urlString = url {
+            return URL(string: urlString)
+        }
+        
+        return nil
+    }
+}
+
+extension YNItem {
+    static var placeholder: YNItem {
+        guard let fileUrl = Bundle.main.url(forResource: "mock", withExtension: "json") else {
+            return YNItem(id: 0, type: nil, author: nil, timeStamp: 0, text: nil, parent: nil, kids: nil, url: nil, score: nil, title: nil, descendents: nil)
+        }
+    
+        do {
+            let data = try Data(contentsOf: fileUrl)
+            let item = try JSONDecoder().decode(YNItem.self, from: data)
+            return item
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return YNItem(id: 0, type: nil, author: nil, timeStamp: 0, text: nil, parent: nil, kids: nil, url: nil, score: nil, title: nil, descendents: nil)
     }
 }

@@ -31,6 +31,7 @@ class YNItemCell: UITableViewCell {
         label.font = .preferredFont(forTextStyle: .footnote)
         label.textColor = .systemGray
         label.minimumScaleFactor = 0.5
+        label.textAlignment = .right
         return label
     }()
     
@@ -38,14 +39,13 @@ class YNItemCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .systemBlue
         label.font = .preferredFont(forTextStyle: .subheadline)
-        label.textAlignment = .right
         return label
     }()
     
     private lazy var scoreImageView : UIImageView = {
         let iv = UIImageView(image: UIImage(systemName: "hand.thumbsup"))
         iv.contentMode = .scaleAspectFit
-        iv.tintColor = .systemBlue
+        iv.tintColor = .systemGray
         iv.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return iv
     }()
@@ -53,7 +53,7 @@ class YNItemCell: UITableViewCell {
     private lazy var scoreLabel : UILabel = {
         let label = UILabel()
         label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .systemBlue
+        label.textColor = .systemGray
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
     }()
@@ -92,14 +92,14 @@ class YNItemCell: UITableViewCell {
     private lazy var commentsImageView : UIImageView = {
         let iv = UIImageView(image: UIImage(systemName: "text.bubble"))
         iv.contentMode = .scaleAspectFit
-        iv.tintColor = .systemOrange
+        iv.tintColor = .systemGray
         return iv
     }()
     
     private lazy var commentsLabel : UILabel = {
         let label = UILabel()
         label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
-        label.textColor = .systemOrange
+        label.textColor = .systemGray
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
     }()
@@ -112,7 +112,7 @@ class YNItemCell: UITableViewCell {
     }()
     
     private lazy var userInfoStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [hostLabel, userLabel])
+        let stackView = UIStackView(arrangedSubviews: [userLabel, hostLabel])
         stackView.distribution = .fill
         return stackView
     }()
