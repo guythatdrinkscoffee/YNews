@@ -21,25 +21,13 @@ class YNStoriesScreen: UIViewController {
     }
     // MARK: - UI
     private lazy var storiesTableView : UITableView = {
-        let tableView = UITableView(frame: .zero, style: .plain)
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(YNItemCell.self, forCellReuseIdentifier: YNItemCell.resueIdentifer)
         tableView.rowHeight = 100
         return tableView
-    }()
-    
-    private lazy var titleViewButton : UIButton = {
-        var config = UIButton.Configuration.borderless()
-        config.image = UIImage(systemName: "chevron.down.circle.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .medium))
-        config.imagePadding = 10
-        config.imagePlacement = .trailing
-        
-        let button = UIButton(configuration: config)
-        button.showsMenuAsPrimaryAction = true
-        button.menu = configureTitleViewMenu()
-        return button
     }()
     
     private let activityView = YNActivityIndicatorView()
@@ -50,13 +38,12 @@ class YNStoriesScreen: UIViewController {
 
         // configuration
         configureViewController()
-        configureNavigationBar()
         
         // layout
         layoutPostsTableView()
         
         // fetch stories
-        fetchPosts(from: .new)
+        fetchPosts(from: .top)
     }
 }
 
@@ -64,26 +51,6 @@ class YNStoriesScreen: UIViewController {
 extension YNStoriesScreen {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-    }
-    
-    private func configureNavigationBar() {
-        navigationItem.titleView = titleViewButton
-    }
-    
-    private func configureTitleViewMenu() -> UIMenu {
-        let newStories = UIAction(title: "New", image: UIImage(systemName: "wand.and.stars")) { _ in
-            self.fetchPosts(from: .new)
-        }
-        
-        let topStories = UIAction(title: "Top", image: UIImage(systemName: "chart.line.uptrend.xyaxis")) { _ in
-            self.fetchPosts(from: .top)
-        }
-        
-        let bestStories = UIAction(title: "Best", image: UIImage(systemName: "star")) { _ in
-            self.fetchPosts(from: .best)
-        }
-        
-        return UIMenu(children: [newStories, topStories, bestStories])
     }
 }
 
@@ -98,7 +65,7 @@ extension YNStoriesScreen {
             storiesTableView.topAnchor.constraint(equalTo: view.topAnchor),
             storiesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             storiesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            storiesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            storiesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             activityView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -120,9 +87,6 @@ extension YNStoriesScreen {
         // clear the posts
         stories.removeAll()
         
-        // update the navigation bar title view
-        updateNavigationTitle(with: type)
-        
         storiesCancellable = storiesService
             .fetchStories(at: type)
             .receive(on: DispatchQueue.main)
@@ -136,16 +100,6 @@ extension YNStoriesScreen {
             })
     }
     
-    private func updateNavigationTitle(with type: YNStoryEndpoint) {
-        titleViewButton.configurationUpdateHandler = { button in
-            var config = button.configuration
-            config?.title = type.name
-            
-            button.configuration = config
-        }
-        
-        titleViewButton.updateConfiguration()
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -163,6 +117,15 @@ extension YNStoriesScreen: UITableViewDataSource {
         let item = stories[row]
         cell.configure(with: item, pos: row)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let selectorView = YNStoryTypeSelector(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 80)))
+        return selectorView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
 }
 
