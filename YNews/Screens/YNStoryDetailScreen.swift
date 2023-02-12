@@ -15,6 +15,7 @@ class YNStoryDetailScreen: UIViewController {
     private var commentsService: YNCommentsService
     private var linkPreview: LPLinkView!
     private var cancellables = Set<AnyCancellable>()
+    private var comments: [YNItem] = []
     // MARK: - UI
     private lazy var scrollView : UIScrollView = {
         let sv = UIScrollView()
@@ -39,9 +40,9 @@ class YNStoryDetailScreen: UIViewController {
         let textView = UITextView()
         textView.isScrollEnabled = false
         textView.isEditable = false
+        textView.font = .preferredFont(forTextStyle: .body)
         return textView
     }()
-    
     
     private lazy var scoreImageView : UIImageView = {
         let iv = UIImageView(image: UIImage(systemName: "hand.thumbsup"))
@@ -89,7 +90,6 @@ class YNStoryDetailScreen: UIViewController {
         return stackView
     }()
     
-    
     private lazy var commentsImageView : UIImageView = {
         let iv = UIImageView(image: UIImage(systemName: "text.bubble"))
         iv.contentMode = .scaleAspectFit
@@ -126,12 +126,23 @@ class YNStoryDetailScreen: UIViewController {
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
+    
+    private lazy var dividerView : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray6
+        return view
+    }()
 
     private lazy var commentsTableView : YNTableView = {
         let tableView = YNTableView(frame: .zero, style: .plain)
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(YNCommentCell.self, forCellReuseIdentifier: YNCommentCell.reuseIdentifier)
+        tableView.isScrollEnabled = false
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     
@@ -155,6 +166,7 @@ class YNStoryDetailScreen: UIViewController {
         // layout
         layoutScrollView()
         layoutInfoStackView()
+        layoutDividerView()
         layoutCommentsTableView()
         
         // set data
@@ -188,7 +200,6 @@ extension YNStoryDetailScreen {
             contentView.leadingAnchor.constraint(equalTo: contentMargins.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: contentMargins.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: contentMargins.bottomAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 1000),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
     }
@@ -203,11 +214,22 @@ extension YNStoryDetailScreen {
         ])
     }
     
+    private func layoutDividerView() {
+        contentView.addSubview(dividerView)
+        
+        NSLayoutConstraint.activate([
+            dividerView.topAnchor.constraint(equalToSystemSpacingBelow: infoStackView.bottomAnchor, multiplier: 2),
+            dividerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.95),
+            dividerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            dividerView.heightAnchor.constraint(equalToConstant: 1)
+        ])
+    }
+    
     private func layoutCommentsTableView() {
         contentView.addSubview(commentsTableView)
         
         NSLayoutConstraint.activate([
-            commentsTableView.topAnchor.constraint(equalToSystemSpacingBelow: infoStackView.bottomAnchor, multiplier: 2),
+            commentsTableView.topAnchor.constraint(equalToSystemSpacingBelow: dividerView.bottomAnchor, multiplier: 2),
             commentsTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             commentsTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             commentsTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
@@ -239,23 +261,24 @@ extension YNStoryDetailScreen {
     private func fetchComments() {
         guard let comments = story.kids else { return }
         
-        commentsService
-            .fetchComments(commentIdentifiers: comments)
+        commentsService.fetchRootComments(ids: comments)
             .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
-            } receiveValue: { comments in
-                
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: self.commentsTableView.reloadData()
+                default: break
+                }
+            }) { comments in
+                self.comments = comments
             }
             .store(in: &cancellables)
-            
     }
 }
 
 // MARK: - UITableViewDataSource
 extension YNStoryDetailScreen: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -263,7 +286,17 @@ extension YNStoryDetailScreen: UITableViewDataSource {
             fatalError("Failed to dequeue a reusable cell")
         }
         
+        let comment = comments[indexPath.row]
+        cell.set(comment)
+        
         return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension YNStoryDetailScreen: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
 }
 // MARK: - Preview
@@ -280,8 +313,6 @@ struct YNStoryDetailScreen_Preview: PreviewProvider {
 }
 
 #endif
-
-
 
 extension String {
     func htmlToString() -> String {

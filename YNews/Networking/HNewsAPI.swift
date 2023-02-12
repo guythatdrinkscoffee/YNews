@@ -51,6 +51,11 @@ extension HNewsAPI {
             .collect()
             .eraseToAnyPublisher()
     }
+    
+    public func fetchItem(id: Int) -> AnyPublisher<YNItem, Error> {
+        return fetchItem(at: .item(id))
+            .eraseToAnyPublisher()
+    }
 }
 
 
