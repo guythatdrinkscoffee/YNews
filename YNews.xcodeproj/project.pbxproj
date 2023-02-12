@@ -24,7 +24,7 @@
 		BEEBFB392995B8AE00FAD75B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEEBFB382995B8AE00FAD75B /* Assets.xcassets */; };
 		BEEBFB3C2995B8AE00FAD75B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEEBFB3A2995B8AE00FAD75B /* LaunchScreen.storyboard */; };
 		BEEBFB482995C66B00FAD75B /* YNStoriesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB472995C66B00FAD75B /* YNStoriesScreen.swift */; };
-		BEEBFB4A2995C67A00FAD75B /* YNShowcaseScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB492995C67A00FAD75B /* YNShowcaseScreen.swift */; };
+		BEEBFB4A2995C67A00FAD75B /* YNBookmarksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB492995C67A00FAD75B /* YNBookmarksScreen.swift */; };
 		BEEBFB502995CCEC00FAD75B /* YNItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB4F2995CCEC00FAD75B /* YNItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +48,7 @@
 		BEEBFB3B2995B8AE00FAD75B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BEEBFB3D2995B8AE00FAD75B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEEBFB472995C66B00FAD75B /* YNStoriesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNStoriesScreen.swift; sourceTree = "<group>"; };
-		BEEBFB492995C67A00FAD75B /* YNShowcaseScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNShowcaseScreen.swift; sourceTree = "<group>"; };
+		BEEBFB492995C67A00FAD75B /* YNBookmarksScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNBookmarksScreen.swift; sourceTree = "<group>"; };
 		BEEBFB4F2995CCEC00FAD75B /* YNItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +94,7 @@
 			children = (
 				BEEBFB332995B8AE00FAD75B /* YNRootTabScreen.swift */,
 				BEEBFB472995C66B00FAD75B /* YNStoriesScreen.swift */,
-				BEEBFB492995C67A00FAD75B /* YNShowcaseScreen.swift */,
+				BEEBFB492995C67A00FAD75B /* YNBookmarksScreen.swift */,
 				BE3853C72997069D0068EE33 /* YNStoryDetailScreen.swift */,
 			);
 			path = Screens;
@@ -247,7 +247,7 @@
 				BE3853C82997069D0068EE33 /* YNStoryDetailScreen.swift in Sources */,
 				BE3853C0299608780068EE33 /* YNActivityIndicatorView.swift in Sources */,
 				BE3853BD299601370068EE33 /* YNItemCell.swift in Sources */,
-				BEEBFB4A2995C67A00FAD75B /* YNShowcaseScreen.swift in Sources */,
+				BEEBFB4A2995C67A00FAD75B /* YNBookmarksScreen.swift in Sources */,
 				BE3853CA29974EDB0068EE33 /* YNTableView.swift in Sources */,
 				BEEBFB482995C66B00FAD75B /* YNStoriesScreen.swift in Sources */,
 				BE3853B62995D0490068EE33 /* HNewsAPI.swift in Sources */,

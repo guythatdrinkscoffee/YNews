@@ -7,7 +7,7 @@
 
 import UIKit
 
-class YNShowcaseScreen: UIViewController {
+class YNBookmarksScreen: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,7 @@ class YNShowcaseScreen: UIViewController {
 }
 
 // MARK: - Configuration
-extension YNShowcaseScreen {
+extension YNBookmarksScreen {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
     }

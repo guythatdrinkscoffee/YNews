@@ -24,7 +24,7 @@ extension YNRootTabScreen {
         view.backgroundColor = .systemBackground
         viewControllers = [
             makePostsScreen(),
-            makeShowcaseScreen()
+            makeBookmarksScreen()
         ]
     }
     
@@ -35,10 +35,10 @@ extension YNRootTabScreen {
         return containerNav
     }
     
-    private func makeShowcaseScreen() -> UINavigationController {
-        let showcaseScreen = YNShowcaseScreen()
-        showcaseScreen.tabBarItem = UITabBarItem(title: "Showcase", image: UIImage(systemName: "wand.and.rays"), tag: 1)
-        let containerNav = UINavigationController(rootViewController: showcaseScreen)
+    private func makeBookmarksScreen() -> UINavigationController {
+        let bookmarksScreen = YNBookmarksScreen()
+        bookmarksScreen.tabBarItem = UITabBarItem(title: "Bookmarks", image: UIImage(systemName: "bookmark"), tag: 1)
+        let containerNav = UINavigationController(rootViewController: bookmarksScreen)
         return containerNav
     }
 }
