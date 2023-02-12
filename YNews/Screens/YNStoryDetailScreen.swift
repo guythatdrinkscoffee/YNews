@@ -121,20 +121,12 @@ class YNStoryDetailScreen: UIViewController {
     }()
     
     private lazy var infoStackView : UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [titleLabel, bottomStackView])
+        let sv = UIStackView(arrangedSubviews: [titleLabel, .horizontalSpacer(), bottomStackView, .horizontalSpacer()])
         sv.axis = .vertical
         sv.distribution = .fill
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
-    
-    private lazy var dividerView : UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray6
-        return view
-    }()
-    
     
     private lazy var activityIndicator : UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .medium)
@@ -174,7 +166,6 @@ class YNStoryDetailScreen: UIViewController {
         // layout
         layoutScrollView()
         layoutInfoStackView()
-        layoutDividerView()
         layoutCommentsTableView()
         
         // set data
@@ -227,23 +218,13 @@ extension YNStoryDetailScreen {
         ])
     }
     
-    private func layoutDividerView() {
-        contentView.addSubview(dividerView)
-        
-        NSLayoutConstraint.activate([
-            dividerView.topAnchor.constraint(equalToSystemSpacingBelow: infoStackView.bottomAnchor, multiplier: 2),
-            dividerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.95),
-            dividerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            dividerView.heightAnchor.constraint(equalToConstant: 1)
-        ])
-    }
     
     private func layoutCommentsTableView() {
         contentView.addSubview(commentsTableView)
         contentView.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
-            commentsTableView.topAnchor.constraint(equalToSystemSpacingBelow: dividerView.bottomAnchor, multiplier: 2),
+            commentsTableView.topAnchor.constraint(equalToSystemSpacingBelow: infoStackView.bottomAnchor, multiplier: 2),
             commentsTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             commentsTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             commentsTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -262,7 +243,7 @@ extension YNStoryDetailScreen {
         commentsLabel.text = story.kids?.count.formatted() ?? "0"
         timeLabel.text = story.relativeTime
         
-        let middle = infoStackView.arrangedSubviews.count / 2
+        let middle = (infoStackView.arrangedSubviews.count / 2) - 1
         
         if let link = story.link {
             linkPreview = LPLinkView(url: link)
@@ -357,3 +338,12 @@ extension String {
     }
 }
 
+extension UIView {
+    static public func horizontalSpacer() -> UIView {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        view.backgroundColor = .systemGray5
+        return view
+    }
+}

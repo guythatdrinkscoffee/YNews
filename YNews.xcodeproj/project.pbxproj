@@ -17,6 +17,7 @@
 		BE3853CF29975ED70068EE33 /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = BE3853CE29975ED70068EE33 /* mock.json */; };
 		BE3853D129981B6B0068EE33 /* YNCommentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D029981B6B0068EE33 /* YNCommentsService.swift */; };
 		BE3853D32998212E0068EE33 /* YNCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D22998212E0068EE33 /* YNCommentCell.swift */; };
+		BE3853D82998CA070068EE33 /* YNStoryEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */; };
 		BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */; };
 		BEEBFB322995B8AE00FAD75B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB312995B8AE00FAD75B /* SceneDelegate.swift */; };
 		BEEBFB342995B8AE00FAD75B /* YNRootTabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB332995B8AE00FAD75B /* YNRootTabScreen.swift */; };
@@ -38,6 +39,7 @@
 		BE3853CE29975ED70068EE33 /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
 		BE3853D029981B6B0068EE33 /* YNCommentsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNCommentsService.swift; sourceTree = "<group>"; };
 		BE3853D22998212E0068EE33 /* YNCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNCommentCell.swift; sourceTree = "<group>"; };
+		BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNStoryEndpoints.swift; sourceTree = "<group>"; };
 		BEEBFB2C2995B8AE00FAD75B /* YNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEEBFB312995B8AE00FAD75B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				BEEBFB4F2995CCEC00FAD75B /* YNItem.swift */,
+				BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				BE3853D129981B6B0068EE33 /* YNCommentsService.swift in Sources */,
 				BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */,
 				BEEBFB502995CCEC00FAD75B /* YNItem.swift in Sources */,
+				BE3853D82998CA070068EE33 /* YNStoryEndpoints.swift in Sources */,
 				BE3853D32998212E0068EE33 /* YNCommentCell.swift in Sources */,
 				BEEBFB322995B8AE00FAD75B /* SceneDelegate.swift in Sources */,
 			);

@@ -8,21 +8,6 @@
 import UIKit
 import Combine
 
-
- enum StoriesType {
-    case new
-    case top
-    case best
-    
-    var name: String {
-        switch self {
-        case .new : return "New"
-        case .top : return "Top"
-        case .best: return "Best"
-        }
-    }
-}
-
 class YNStoriesScreen: UIViewController {
     // MARK: - Properties
     private let storiesService = YNStoriesService()
@@ -34,21 +19,6 @@ class YNStoriesScreen: UIViewController {
             storiesTableView.reloadData()
         }
     }
-    
-    private enum StoriesType {
-        case new
-        case top
-        case best
-        
-        var name: String {
-            switch self {
-            case .new : return "New"
-            case .top : return "Top"
-            case .best: return "Best"
-            }
-        }
-    }
-    
     // MARK: - UI
     private lazy var storiesTableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -140,7 +110,7 @@ extension YNStoriesScreen {
 
 // MARK: - Methods
 extension YNStoriesScreen {
-    private func fetchPosts(from type: StoriesType) {
+    private func fetchPosts(from type: YNStoryEndpoint) {
         // Cancel the posts cancellable in case the state is in mid fetch
         storiesCancellable?.cancel()
         
@@ -153,38 +123,20 @@ extension YNStoriesScreen {
         // update the navigation bar title view
         updateNavigationTitle(with: type)
         
-        switch type {
-        case .new:
-            storiesCancellable = storiesService
-                .fetchNewStories()
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in
-                    self.activityView.stop()
-                }, receiveValue: { posts in
-                    self.stories = posts
-                })
-        case .top:
-            storiesCancellable = storiesService
-                .fetchTopStories()
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in
-                    self.activityView.stop()
-                }, receiveValue: { posts in
-                    self.stories = posts
-                })
-        case .best:
-            storiesCancellable = storiesService
-                .fetchBestStories()
-                .receive(on: DispatchQueue.main)
-                .sink(receiveCompletion: { _ in
-                    self.activityView.stop()
-                }, receiveValue: { posts in
-                    self.stories = posts
-                })
-        }
+        storiesCancellable = storiesService
+            .fetchStories(at: type)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: self.activityView.stop()
+                default: break
+                }
+            }, receiveValue: { stories in
+                self.stories = stories
+            })
     }
     
-    private func updateNavigationTitle(with type: StoriesType) {
+    private func updateNavigationTitle(with type: YNStoryEndpoint) {
         titleViewButton.configurationUpdateHandler = { button in
             var config = button.configuration
             config?.title = type.name
