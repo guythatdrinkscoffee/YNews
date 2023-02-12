@@ -9,25 +9,18 @@ import Foundation
 import Combine
 
 struct HNewsAPI {
-    static let baseUrl = URL(string: "https://hacker-news.firebaseio.com/v0")
-    
-    private  enum Endpoints {
-        case newStories
-        case topStories
-        case bestStories
+    private enum ItemEndpoint {
+        static let baseUrl = URL(string: "https://hacker-news.firebaseio.com/v0")
         case item(Int)
         var url: URL? {
             switch self {
-            case .newStories: return HNewsAPI.baseUrl?.appendingPathComponent("/newstories.json")
-            case .topStories: return HNewsAPI.baseUrl?.appendingPathComponent("/topstories.json")
-            case .bestStories: return HNewsAPI.baseUrl?.appendingPathComponent("/beststories.json")
-            case .item(let id): return HNewsAPI.baseUrl?.appending(path: "/item/\(id).json")
+            case .item(let id): return ItemEndpoint.baseUrl?.appending(path: "/item/\(id).json")
             }
         }
     }
     
-    private func fetchItem(id: Int) -> AnyPublisher<YNItem, Error> {
-        guard let itemUrl = Endpoints.item(id).url else {
+    private func fetchItem(at endPoint: ItemEndpoint) -> AnyPublisher<YNItem, Error> {
+        guard let itemUrl = endPoint.url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
@@ -41,11 +34,11 @@ struct HNewsAPI {
     private func mergeItems(ids: [Int]) -> AnyPublisher<YNItem, Error> {
         let initialId = ids.first!
         let remainingIds = Array(ids.dropFirst())
-        let initialPublisher = fetchItem(id: initialId)
+        let initialPublisher = fetchItem(at: .item(initialId))
         
         return remainingIds.reduce(initialPublisher) { partialResult, nextId in
             partialResult
-                .merge(with: fetchItem(id: nextId))
+                .merge(with: fetchItem(at: .item(nextId)))
                 .eraseToAnyPublisher()
         }
     }
@@ -53,48 +46,8 @@ struct HNewsAPI {
 
 // MARK: - Public Methods
 extension HNewsAPI {
-    public func fetchNewStories() -> AnyPublisher<[YNItem], Error> {
-        guard let newStoriesUrl = Endpoints.newStories.url else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
-        
-        return URLSession.shared.dataTaskPublisher(for: newStoriesUrl)
-            .map(\.data)
-            .decode(type: [Int].self, decoder: JSONDecoder())
-            .flatMap({ ids in
-                return mergeItems(ids: Array(ids.prefix(50)))
-            })
-            .collect()
-            .eraseToAnyPublisher()
-    }
-
-    public func fetchTopStories() -> AnyPublisher<[YNItem], Error> {
-        guard let topStoriesUrl = Endpoints.topStories.url else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
-        
-        return URLSession.shared.dataTaskPublisher(for: topStoriesUrl)
-            .map(\.data)
-            .decode(type: [Int].self, decoder: JSONDecoder())
-            .flatMap ({ topStoryIds in
-                return mergeItems(ids: Array(topStoryIds.prefix(50)))
-            })
-            .collect()
-            .eraseToAnyPublisher()
-    }
-    
-    
-    public func fetchBestStories() -> AnyPublisher<[YNItem], Error> {
-        guard let topStoriesUrl = Endpoints.bestStories.url else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
-        
-        return URLSession.shared.dataTaskPublisher(for: topStoriesUrl)
-            .map(\.data)
-            .decode(type: [Int].self, decoder: JSONDecoder())
-            .flatMap ({ bestStoryIds in
-                return mergeItems(ids: Array(bestStoryIds.prefix(50)))
-            })
+    public func fetchItems(ids: [Int]) -> AnyPublisher<[YNItem], Error> {
+        return mergeItems(ids: ids)
             .collect()
             .eraseToAnyPublisher()
     }

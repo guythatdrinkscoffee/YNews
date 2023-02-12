@@ -14,9 +14,10 @@ class YNItemCell: UITableViewCell {
     // MARK: - UI
     private lazy var indexLabel : UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .black)
+        label.font = .systemFont(ofSize: 12, weight: .black)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.minimumScaleFactor = 0.5
         return label
     }()
     
@@ -189,8 +190,7 @@ extension YNItemCell {
         NSLayoutConstraint.activate([
             indexLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 1),
             indexLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            indexLabel.widthAnchor.constraint(equalToConstant: 30),
-            indexLabel.heightAnchor.constraint(equalToConstant: 30),
+            indexLabel.widthAnchor.constraint(equalToConstant: 45)
         ])
     }
  
@@ -199,7 +199,7 @@ extension YNItemCell {
         
         NSLayoutConstraint.activate([
             rootStackView.topAnchor.constraint(equalToSystemSpacingBelow: contentView.topAnchor, multiplier: 1),
-            rootStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: indexLabel.trailingAnchor, multiplier: 1),
+            rootStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: indexLabel.trailingAnchor, multiplier: 0.5),
             contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: rootStackView.trailingAnchor, multiplier: 2),
             contentView.bottomAnchor.constraint(equalToSystemSpacingBelow: rootStackView.bottomAnchor, multiplier: 1),
         ])

@@ -8,6 +8,21 @@
 import UIKit
 import Combine
 
+
+ enum StoriesType {
+    case new
+    case top
+    case best
+    
+    var name: String {
+        switch self {
+        case .new : return "New"
+        case .top : return "Top"
+        case .best: return "Best"
+        }
+    }
+}
+
 class YNStoriesScreen: UIViewController {
     // MARK: - Properties
     private let storiesService = YNStoriesService()
@@ -141,7 +156,7 @@ extension YNStoriesScreen {
         switch type {
         case .new:
             storiesCancellable = storiesService
-                .newStories()
+                .fetchNewStories()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     self.activityView.stop()
@@ -150,7 +165,7 @@ extension YNStoriesScreen {
                 })
         case .top:
             storiesCancellable = storiesService
-                .topStories()
+                .fetchTopStories()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     self.activityView.stop()
@@ -159,7 +174,7 @@ extension YNStoriesScreen {
                 })
         case .best:
             storiesCancellable = storiesService
-                .bestStories()
+                .fetchBestStories()
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { _ in
                     self.activityView.stop()

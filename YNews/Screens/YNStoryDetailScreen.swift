@@ -7,14 +7,14 @@
 
 import UIKit
 import LinkPresentation
-import WebKit
-
+import Combine
 
 class YNStoryDetailScreen: UIViewController {
     // MARK: - Properties
     private var story: YNItem
+    private var commentsService: YNCommentsService
     private var linkPreview: LPLinkView!
-    
+    private var cancellables = Set<AnyCancellable>()
     // MARK: - UI
     private lazy var scrollView : UIScrollView = {
         let sv = UIScrollView()
@@ -126,10 +126,19 @@ class YNStoryDetailScreen: UIViewController {
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
+
+    private lazy var commentsTableView : YNTableView = {
+        let tableView = YNTableView(frame: .zero, style: .plain)
+        tableView.dataSource = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(YNCommentCell.self, forCellReuseIdentifier: YNCommentCell.reuseIdentifier)
+        return tableView
+    }()
     
     // MARK: - Life cycle
-    init(story: YNItem) {
+    init(story: YNItem, service: YNCommentsService = YNCommentsService()) {
         self.story = story
+        self.commentsService = service
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -146,10 +155,11 @@ class YNStoryDetailScreen: UIViewController {
         // layout
         layoutScrollView()
         layoutInfoStackView()
-        
+        layoutCommentsTableView()
         
         // set data
         setItemInfo()
+        fetchComments()
     }
 }
 
@@ -189,8 +199,18 @@ extension YNStoryDetailScreen {
         NSLayoutConstraint.activate([
             infoStackView.topAnchor.constraint(equalToSystemSpacingBelow: contentView.topAnchor, multiplier: 1),
             infoStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 1.5),
-            contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: infoStackView.trailingAnchor, multiplier: 1.5),
-            
+            contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: infoStackView.trailingAnchor, multiplier: 1.5)
+        ])
+    }
+    
+    private func layoutCommentsTableView() {
+        contentView.addSubview(commentsTableView)
+        
+        NSLayoutConstraint.activate([
+            commentsTableView.topAnchor.constraint(equalToSystemSpacingBelow: infoStackView.bottomAnchor, multiplier: 2),
+            commentsTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            commentsTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            commentsTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }
@@ -215,8 +235,37 @@ extension YNStoryDetailScreen {
             infoStackView.spacing = 10
         }
     }
+    
+    private func fetchComments() {
+        guard let comments = story.kids else { return }
+        
+        commentsService
+            .fetchComments(commentIdentifiers: comments)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                
+            } receiveValue: { comments in
+                
+            }
+            .store(in: &cancellables)
+            
+    }
 }
 
+// MARK: - UITableViewDataSource
+extension YNStoryDetailScreen: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: YNCommentCell.reuseIdentifier, for: indexPath) as? YNCommentCell else {
+            fatalError("Failed to dequeue a reusable cell")
+        }
+        
+        return cell
+    }
+}
 // MARK: - Preview
 #if canImport(SwiftUI)
 import SwiftUI
