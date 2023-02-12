@@ -39,7 +39,7 @@ class YNItemCell: UITableViewCell {
     private lazy var userLabel : UILabel = {
         let label = UILabel()
         label.textColor = .systemBlue
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.font = .systemFont(ofSize: 14, weight: .semibold)
         return label
     }()
     

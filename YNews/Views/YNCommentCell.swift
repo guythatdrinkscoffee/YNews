@@ -19,9 +19,52 @@ class YNCommentCell: UITableViewCell {
         return label
     }()
     
-    private lazy var topStackView : UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [userLabel])
+    private lazy var repliesImageView : UIImageView = {
+        let iv = UIImageView(image: UIImage(systemName: "arrowshape.turn.up.left.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .small)))
+        iv.contentMode = .scaleAspectFit
+        iv.tintColor = .systemGray
+        return iv
+    }()
+    
+    private lazy var repliesLabel : UILabel = {
+        let label = UILabel()
+        label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
+        label.textColor = .systemGray
+        return label
+    }()
+    
+    private lazy var repliesStackView : UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [repliesImageView, repliesLabel])
         sv.distribution = .fill
+        sv.spacing = 2
+        return sv
+    }()
+    
+    private lazy var timeImageView : UIImageView = {
+        let iv = UIImageView(image: UIImage(systemName: "clock", withConfiguration: UIImage.SymbolConfiguration(scale: .small)))
+        iv.contentMode = .scaleAspectFit
+        iv.tintColor = .systemGray
+        return iv
+    }()
+    
+    private lazy var timeLabel : UILabel = {
+        let label = UILabel()
+        label.font = .monospacedSystemFont(ofSize: 14, weight: .semibold)
+        label.textColor = .systemGray
+        return label
+    }()
+    
+    private lazy var timeStackView : UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [timeImageView, timeLabel])
+        sv.distribution = .fill
+        sv.spacing = 2
+        return sv
+    }()
+    
+    private lazy var topStackView : UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [userLabel, repliesStackView, timeStackView])
+        sv.distribution = .fill
+        sv.spacing = 10
         return sv
     }()
     
@@ -71,6 +114,8 @@ extension YNCommentCell {
     public func set(_ item: YNItem) {
         userLabel.text = item.author
         textView.text = item.text?.htmlToString()
+        repliesLabel.text  = item.kids?.count.formatted() ?? "0"
+        timeLabel.text = item.relativeTime
     }
 }
 
