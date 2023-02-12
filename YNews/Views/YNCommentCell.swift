@@ -14,7 +14,7 @@ class YNCommentCell: UITableViewCell {
     // MARK: - UI
     private lazy var userLabel : UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.font = .systemFont(ofSize: 14, weight: .semibold)
         label.textColor = .systemBlue
         return label
     }()

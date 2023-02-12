@@ -16,6 +16,7 @@ class YNStoryDetailScreen: UIViewController {
     private var linkPreview: LPLinkView!
     private var cancellables = Set<AnyCancellable>()
     private var comments: [YNItem] = []
+    
     // MARK: - UI
     private lazy var scrollView : UIScrollView = {
         let sv = UIScrollView()
@@ -133,7 +134,14 @@ class YNStoryDetailScreen: UIViewController {
         view.backgroundColor = .systemGray6
         return view
     }()
-
+    
+    
+    private lazy var activityIndicator : UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .medium)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var commentsTableView : YNTableView = {
         let tableView = YNTableView(frame: .zero, style: .plain)
         tableView.dataSource = self
@@ -159,7 +167,7 @@ class YNStoryDetailScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-  
+        
         // configuration
         configureViewController()
         
@@ -171,6 +179,11 @@ class YNStoryDetailScreen: UIViewController {
         
         // set data
         setItemInfo()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         fetchComments()
     }
 }
@@ -227,12 +240,16 @@ extension YNStoryDetailScreen {
     
     private func layoutCommentsTableView() {
         contentView.addSubview(commentsTableView)
+        contentView.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
             commentsTableView.topAnchor.constraint(equalToSystemSpacingBelow: dividerView.bottomAnchor, multiplier: 2),
             commentsTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             commentsTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            commentsTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            commentsTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: commentsTableView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: commentsTableView.centerYAnchor)
         ])
     }
 }
@@ -246,11 +263,22 @@ extension YNStoryDetailScreen {
         timeLabel.text = story.relativeTime
         
         let middle = infoStackView.arrangedSubviews.count / 2
-
+        
         if let link = story.link {
             linkPreview = LPLinkView(url: link)
             infoStackView.insertArrangedSubview(linkPreview, at: middle)
             infoStackView.spacing = 20
+            
+            let provider = LPMetadataProvider()
+            provider.startFetchingMetadata(for: link) { md, err in
+                guard let md = md, err == nil else { return }
+                
+                DispatchQueue.main.async { [weak self] in
+                    self?.linkPreview.metadata = md
+                    self?.linkPreview.sizeToFit()
+                }
+            }
+            
         } else if let text = story.text {
             textView.text = text.htmlToString()
             infoStackView.insertArrangedSubview(textView, at: middle)
@@ -261,15 +289,22 @@ extension YNStoryDetailScreen {
     private func fetchComments() {
         guard let comments = story.kids else { return }
         
+        activityIndicator.startAnimating()
+        
         commentsService.fetchRootComments(ids: comments)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: self.commentsTableView.reloadData()
-                default: break
-                }
-            }) { comments in
+            .sink { _ in
+                
+            } receiveValue: { comments in
                 self.comments = comments
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if self.activityIndicator.isAnimating {
+                        self.activityIndicator.stopAnimating()
+                    }
+                    
+                    self.commentsTableView.reloadData()
+                }
             }
             .store(in: &cancellables)
     }
