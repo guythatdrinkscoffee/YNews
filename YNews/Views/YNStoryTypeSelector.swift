@@ -64,7 +64,7 @@ extension YNStoryTypeSelector {
             var config = UIButton.Configuration.borderedProminent()
             config.cornerStyle = .capsule
             config.buttonSize = .small
-            config.title = type.element.name
+            config.attributedTitle = AttributedString(type.element.name, attributes: AttributeContainer([.font : UIFont.systemFont(ofSize: 14, weight: .bold)]))
             config.image = type.element.image
             config.imagePlacement = .trailing
             config.imagePadding = 5
