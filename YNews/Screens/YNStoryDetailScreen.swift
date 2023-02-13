@@ -260,8 +260,8 @@ extension YNStoryDetailScreen {
                 }
             }
             
-        } else if let text = story.text {
-            textView.text = text
+        } else if let text = story.attributedText {
+            textView.attributedText = text
             infoStackView.insertArrangedSubview(textView, at: middle)
             infoStackView.spacing = 10
         }
