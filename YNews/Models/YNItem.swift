@@ -50,13 +50,13 @@ extension YNItem {
         return nil
     }
     
-    var attributedText: NSAttributedString? {
-        if let text = text, let textData = text.data(using: .utf8) {
+    func  getAttributedText(font: UIFont = .preferredFont(forTextStyle: .body)) -> NSAttributedString? {
+        if let text = text, let textData = text.data(using: .utf16) {
             let attributedText = try? NSMutableAttributedString(
                 data: textData,
                 options: [.documentType: NSAttributedString.DocumentType.html],
                 documentAttributes: nil)
-            attributedText?.addAttributes([.font: UIFont.preferredFont(forTextStyle: .body)], range: NSRange(location: 0, length: attributedText?.string.count ?? 0))
+            attributedText?.addAttributes([.font: font], range: NSRange(location: 0, length: attributedText?.string.count ?? 0))
             return attributedText
         }
         

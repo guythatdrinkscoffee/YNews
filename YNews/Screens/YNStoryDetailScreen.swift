@@ -33,7 +33,7 @@ class YNStoryDetailScreen: UIViewController {
     private lazy var titleLabel : UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         return label
     }()
     
@@ -260,7 +260,7 @@ extension YNStoryDetailScreen {
                 }
             }
             
-        } else if let text = story.attributedText {
+        } else if let text = story.getAttributedText() {
             textView.attributedText = text
             infoStackView.insertArrangedSubview(textView, at: middle)
             infoStackView.spacing = 10

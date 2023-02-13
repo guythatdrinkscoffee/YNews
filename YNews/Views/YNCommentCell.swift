@@ -72,7 +72,7 @@ class YNCommentCell: UITableViewCell {
         let tv = UITextView()
         tv.isEditable = false
         tv.isScrollEnabled = false
-        tv.font = .preferredFont(forTextStyle: .body)
+        tv.font = .preferredFont(forTextStyle: .subheadline)
         return tv
     }()
 
@@ -113,7 +113,7 @@ class YNCommentCell: UITableViewCell {
 extension YNCommentCell {
     public func set(_ item: YNItem) {
         userLabel.text = item.author
-        textView.attributedText = item.attributedText
+        textView.attributedText = item.getAttributedText(font: .preferredFont(forTextStyle: .footnote))
         repliesLabel.text  = item.kids?.count.formatted() ?? "0"
         timeLabel.text = item.relativeTime
     }
