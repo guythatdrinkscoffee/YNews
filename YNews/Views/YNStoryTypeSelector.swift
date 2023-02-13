@@ -9,8 +9,8 @@ import UIKit
 
 class YNStoryTypeSelector: UIView {
     // MARK: - Properites
-    private var buttons: [UIButton] = []
-    
+    public var selectedType: YNStoryEndpoint = .top
+    public var buttons: [UIButton] = []
     // MARK: - UI
     private lazy var scrollView : UIScrollView = {
         let scrollView = UIScrollView()
@@ -61,10 +61,14 @@ extension YNStoryTypeSelector {
             config.image = type.element.image
             config.imagePlacement = .trailing
             config.imagePadding = 5
-            config.baseBackgroundColor = type.offset == 0 ? .systemBlue : .systemGray
+            config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(scale: .small)
+            config.baseBackgroundColor = type.offset == 0 ? .systemBlue : .systemGray2
             
             let button = UIButton(configuration: config)
             button.addTarget(self, action: #selector(handleButtonTap(_:)), for: .touchUpInside)
+            button.tag = type.offset
+            button.isSelected = type.offset == 0
+            
             buttons.append(button)
             rootStackView.addArrangedSubview(button)
         }
@@ -75,7 +79,29 @@ extension YNStoryTypeSelector {
 extension YNStoryTypeSelector {
     @objc
     private func handleButtonTap(_ sender: UIButton){
-        print(sender)
+        guard let selectedType = YNStoryEndpoint(rawValue: sender.tag), selectedType != self.selectedType else {
+            return
+        }
+        
+        self.selectedType = selectedType
+        
+        if let currentSelected = buttons.first(where: { $0.isSelected }) {
+            currentSelected.isSelected = false
+            currentSelected.configurationUpdateHandler = { button in
+                var config = button.configuration
+                config?.baseBackgroundColor = .systemGray2
+                button.configuration = config
+            }
+            currentSelected.updateConfiguration()
+        }
+        
+        sender.isSelected = true
+        sender.configurationUpdateHandler = { button in
+            var config = button.configuration
+            config?.baseBackgroundColor = .systemBlue
+            button.configuration = config
+        }
+        sender.updateConfiguration()
     }
 }
 // MARK: - Layout

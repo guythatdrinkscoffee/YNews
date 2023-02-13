@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public enum YNStoryEndpoint: CaseIterable {
+public enum YNStoryEndpoint: Int, CaseIterable {
     static let baseUrl = URL(string: "https://hacker-news.firebaseio.com/v0")
     
     case top
@@ -59,13 +59,13 @@ public enum YNStoryEndpoint: CaseIterable {
         case .top:
             return UIImage(systemName: "chart.line.uptrend.xyaxis")
         case .best:
-            return UIImage(systemName: "star")
+            return UIImage(systemName: "star.fill")
         case .ask:
-            return UIImage(systemName: "mic")
+            return UIImage(systemName: "mic.fill")
         case .show:
             return UIImage(systemName: "macwindow")
         case .job:
-            return UIImage(systemName: "doc.on.clipboard")
+            return UIImage(systemName: "doc.on.clipboard.fill")
         }
     }
 }
