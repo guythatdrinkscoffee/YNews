@@ -47,6 +47,7 @@ class YNStoriesScreen: UIViewController {
 
         // configuration
         configureViewController()
+        configureNavigationBar()
         
         // layout
         layoutPostsTableView()
@@ -60,6 +61,23 @@ class YNStoriesScreen: UIViewController {
 extension YNStoriesScreen {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
+    }
+    
+    private func configureNavigationBar() {
+        let todayLabel = UILabel()
+        todayLabel.font = .preferredFont(forTextStyle: .footnote)
+        todayLabel.textColor = .systemGray
+        todayLabel.text = "Today"
+        
+        let leftLabel = UILabel()
+        leftLabel.font = .preferredFont(forTextStyle: .headline)
+        leftLabel.text = Date.now.formatted(.dateTime.weekday(.wide).month().day())
+        
+        let sv = UIStackView(arrangedSubviews: [todayLabel, leftLabel])
+        sv.axis = .vertical
+        sv.distribution = .fill
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: sv)
     }
 }
 
