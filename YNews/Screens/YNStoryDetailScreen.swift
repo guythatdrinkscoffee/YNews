@@ -8,6 +8,7 @@
 import UIKit
 import LinkPresentation
 import Combine
+import SafariServices
 
 class YNStoryDetailScreen: UIViewController {
     // MARK: - Properties
@@ -42,6 +43,7 @@ class YNStoryDetailScreen: UIViewController {
         textView.isScrollEnabled = false
         textView.isEditable = false
         textView.font = .preferredFont(forTextStyle: .body)
+        textView.delegate = self
         return textView
     }()
     
@@ -145,6 +147,7 @@ class YNStoryDetailScreen: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
+    
     
     // MARK: - Life cycle
     init(story: YNItem, service: YNCommentsService = YNCommentsService()) {
@@ -303,8 +306,7 @@ extension YNStoryDetailScreen: UITableViewDataSource {
         }
         
         let comment = comments[indexPath.row]
-        cell.set(comment)
-        
+        cell.set(comment, delegate: self)
         return cell
     }
 }
@@ -313,6 +315,20 @@ extension YNStoryDetailScreen: UITableViewDataSource {
 extension YNStoryDetailScreen: UITableViewDelegate {
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension YNStoryDetailScreen: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if UIApplication.shared.canOpenURL(URL) {
+            let safariVC = SFSafariViewController(url: URL)
+            safariVC.modalPresentationStyle = .overFullScreen
+            present(safariVC, animated: true)
+            return false
+        } else {
+            return false
+        }
     }
 }
 // MARK: - Preview

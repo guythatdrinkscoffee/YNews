@@ -10,7 +10,7 @@ import UIKit
 class YNCommentCell: UITableViewCell {
     // MARK: - Properties
     static let reuseIdentifier = "YNCommentCell"
-    
+
     // MARK: - UI
     private lazy var userLabel : UILabel = {
         let label = UILabel()
@@ -111,7 +111,8 @@ class YNCommentCell: UITableViewCell {
 
 // MARK: - Configuration
 extension YNCommentCell {
-    public func set(_ item: YNItem) {
+    public func set(_ item: YNItem, delegate: UITextViewDelegate?) {
+        textView.delegate = delegate
         userLabel.text = item.author
         textView.attributedText = item.getAttributedText(font: .preferredFont(forTextStyle: .footnote))
         repliesLabel.text  = item.kids?.count.formatted() ?? "0"
