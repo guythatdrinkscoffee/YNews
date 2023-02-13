@@ -8,9 +8,16 @@
 import UIKit
 
 class YNStoryTypeSelector: UIView {
+    // MARK: - Public Properties
+    public var selectionUpdateHandler: ((YNStoryEndpoint) -> Void)?
+    
     // MARK: - Properites
-    public var selectedType: YNStoryEndpoint = .top
-    public var buttons: [UIButton] = []
+    private  var selectedType: YNStoryEndpoint = .top {
+        didSet {
+            selectionUpdateHandler?(selectedType)
+        }
+    }
+    private  var buttons: [UIButton] = []
     // MARK: - UI
     private lazy var scrollView : UIScrollView = {
         let scrollView = UIScrollView()
@@ -132,8 +139,8 @@ extension YNStoryTypeSelector {
         
         NSLayoutConstraint.activate([
             rootStackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            rootStackView.leadingAnchor.constraint(equalToSystemSpacingAfter: contentView.leadingAnchor, multiplier: 1),
+            contentView.trailingAnchor.constraint(equalToSystemSpacingAfter: rootStackView.trailingAnchor, multiplier: 1)
         ])
     }
 }

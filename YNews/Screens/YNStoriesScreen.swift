@@ -27,10 +27,19 @@ class YNStoriesScreen: UIViewController {
         tableView.delegate = self
         tableView.register(YNItemCell.self, forCellReuseIdentifier: YNItemCell.resueIdentifer)
         tableView.rowHeight = 100
+        tableView.backgroundColor = .systemBackground
         return tableView
     }()
     
     private let activityView = YNActivityIndicatorView()
+    
+    private lazy var selectorView : YNStoryTypeSelector = {
+        let view = YNStoryTypeSelector(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 50)))
+        view.selectionUpdateHandler = { [weak self] selectedType in
+            self?.fetchPosts(from: selectedType)
+        }
+        return view
+    }()
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -120,7 +129,7 @@ extension YNStoriesScreen: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let selectorView = YNStoryTypeSelector(frame: CGRect(origin: .zero, size: CGSize(width: view.frame.width, height: 80)))
+      
         return selectorView
     }
     
