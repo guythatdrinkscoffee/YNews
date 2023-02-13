@@ -113,7 +113,7 @@ class YNCommentCell: UITableViewCell {
 extension YNCommentCell {
     public func set(_ item: YNItem) {
         userLabel.text = item.author
-        textView.text = item.text?.htmlToString()
+        textView.text = item.text
         repliesLabel.text  = item.kids?.count.formatted() ?? "0"
         timeLabel.text = item.relativeTime
     }

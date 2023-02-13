@@ -261,7 +261,7 @@ extension YNStoryDetailScreen {
             }
             
         } else if let text = story.text {
-            textView.text = text.htmlToString()
+            textView.text = text
             infoStackView.insertArrangedSubview(textView, at: middle)
             infoStackView.spacing = 10
         }
@@ -329,14 +329,6 @@ struct YNStoryDetailScreen_Preview: PreviewProvider {
 }
 
 #endif
-
-extension String {
-    func htmlToString() -> String {
-        return  try! NSAttributedString(data: self.data(using: .utf8)!,
-                                        options: [.documentType: NSAttributedString.DocumentType.html],
-                                        documentAttributes: nil).string
-    }
-}
 
 extension UIView {
     static public func horizontalSpacer() -> UIView {
