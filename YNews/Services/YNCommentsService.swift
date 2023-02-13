@@ -28,6 +28,9 @@ final class YNCommentsService {
 extension YNCommentsService {
     public func fetchRootComments(ids: [Int]) -> AnyPublisher<[YNItem], Error> {
         api.fetchItems(ids: ids)
+            .map({ comments in
+                return comments.filter({ $0.author != nil || $0.text != nil })
+            })
             .eraseToAnyPublisher()
     }
 }

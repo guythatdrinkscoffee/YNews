@@ -143,6 +143,7 @@ class YNItemCell: UITableViewCell {
     // MARK: - Life Cycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {
