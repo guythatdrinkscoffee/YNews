@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         // assign the root view controller
-        window?.rootViewController = YNRootTabScreen()
+        window?.rootViewController = makeRootViewController()
         
         // make the window visible
         window?.makeKeyAndVisible()
@@ -59,6 +59,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    
+    private func makeRootViewController() -> UIViewController {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return YNRootSplitViewController(style: .doubleColumn)
+        } else {
+            return YNRootTabScreen()
+        }
+    }
 }
 

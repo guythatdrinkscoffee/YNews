@@ -18,6 +18,7 @@
 		BE3853D129981B6B0068EE33 /* YNCommentsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D029981B6B0068EE33 /* YNCommentsService.swift */; };
 		BE3853D32998212E0068EE33 /* YNCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D22998212E0068EE33 /* YNCommentCell.swift */; };
 		BE3853D82998CA070068EE33 /* YNStoryEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */; };
+		BE3B8349299C36F700B1B0E5 /* YNRootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B8348299C36F700B1B0E5 /* YNRootSplitViewController.swift */; };
 		BED60A72299999980019CBF4 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED60A71299999980019CBF4 /* UIViewPreview.swift */; };
 		BED60A7429999ABE0019CBF4 /* YNStoryTypeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED60A7329999ABE0019CBF4 /* YNStoryTypeSelector.swift */; };
 		BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		BE3853D029981B6B0068EE33 /* YNCommentsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNCommentsService.swift; sourceTree = "<group>"; };
 		BE3853D22998212E0068EE33 /* YNCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNCommentCell.swift; sourceTree = "<group>"; };
 		BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNStoryEndpoints.swift; sourceTree = "<group>"; };
+		BE3B8348299C36F700B1B0E5 /* YNRootSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNRootSplitViewController.swift; sourceTree = "<group>"; };
 		BED60A71299999980019CBF4 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		BED60A7329999ABE0019CBF4 /* YNStoryTypeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNStoryTypeSelector.swift; sourceTree = "<group>"; };
 		BEEBFB2C2995B8AE00FAD75B /* YNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +102,7 @@
 				BEEBFB472995C66B00FAD75B /* YNStoriesScreen.swift */,
 				BEEBFB492995C67A00FAD75B /* YNBookmarksScreen.swift */,
 				BE3853C72997069D0068EE33 /* YNStoryDetailScreen.swift */,
+				BE3B8348299C36F700B1B0E5 /* YNRootSplitViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				BEEBFB342995B8AE00FAD75B /* YNRootTabScreen.swift in Sources */,
 				BE3853C82997069D0068EE33 /* YNStoryDetailScreen.swift in Sources */,
 				BE3853C0299608780068EE33 /* YNActivityIndicatorView.swift in Sources */,
+				BE3B8349299C36F700B1B0E5 /* YNRootSplitViewController.swift in Sources */,
 				BE3853BD299601370068EE33 /* YNItemCell.swift in Sources */,
 				BEEBFB4A2995C67A00FAD75B /* YNBookmarksScreen.swift in Sources */,
 				BED60A7429999ABE0019CBF4 /* YNStoryTypeSelector.swift in Sources */,
