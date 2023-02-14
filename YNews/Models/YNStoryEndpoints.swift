@@ -68,4 +68,11 @@ public enum YNStoryEndpoint: Int, CaseIterable {
             return UIImage(systemName: "doc.on.clipboard.fill")
         }
     }
+    
+    var max: Int {
+        switch self {
+        case .top, .best, .new: return 500
+        case .ask, .show, .job: return 200
+        }
+    }
 }

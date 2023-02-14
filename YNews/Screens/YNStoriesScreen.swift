@@ -19,6 +19,8 @@ class YNStoriesScreen: UIViewController {
             storiesTableView.reloadData()
         }
     }
+    
+    private var currentEnpointType: YNStoryEndpoint = .top
     // MARK: - UI
     private lazy var storiesTableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -107,12 +109,21 @@ extension YNStoriesScreen {
     private func fetchPosts(from type: YNStoryEndpoint) {
         // Cancel the posts cancellable in case the state is in mid fetch
         storiesCancellable?.cancel()
+
+        // if the current endpoint is exhausted and the current endpoint
+        // has not changed then return
+        if storiesService.exhausted && type == currentEnpointType {
+            return
+        }
+        
+        //check if the endpoint type has changed
+        if currentEnpointType != type {
+            self.currentEnpointType = type
+            self.stories.removeAll()
+        }
         
         // start the activity view indicator animation
         activityView.start()
-        
-        // clear the posts
-        stories.removeAll()
         
         storiesCancellable = storiesService
             .fetchStories(at: type)
@@ -120,10 +131,10 @@ extension YNStoriesScreen {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished: self.activityView.stop()
-                default: break
+                default: self.activityView.stop()
                 }
             }, receiveValue: { stories in
-                self.stories = stories
+                self.stories.append(contentsOf: stories)
             })
     }
     
@@ -164,5 +175,20 @@ extension YNStoriesScreen: UITableViewDelegate {
         let selectedStory = stories[indexPath.row]
         let storyDetail = YNStoryDetailScreen(story: selectedStory)
         navigationController?.pushViewController(storyDetail, animated: true)
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension YNStoriesScreen: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        
+        if position > (storiesTableView.contentSize.height - 100 - (scrollView.frame.size.height)) {
+            if storiesService.isFetching {
+                return
+            }
+            
+            self.fetchPosts(from: currentEnpointType)
+        }
     }
 }
