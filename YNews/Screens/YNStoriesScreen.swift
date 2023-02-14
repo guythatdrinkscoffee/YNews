@@ -30,6 +30,7 @@ class YNStoriesScreen: UIViewController {
         tableView.register(YNItemCell.self, forCellReuseIdentifier: YNItemCell.resueIdentifer)
         tableView.rowHeight = 100
         tableView.backgroundColor = .systemBackground
+        tableView.scrollsToTop = true
         return tableView
     }()
     
