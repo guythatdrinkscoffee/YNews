@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public enum YNStoryEndpoint: Int, CaseIterable {
+public enum YNStoryEndpoint: Int, CaseIterable, SelectionProtocol {
     static let baseUrl = URL(string: "https://hacker-news.firebaseio.com/v0")
     
     case top
@@ -69,10 +69,20 @@ public enum YNStoryEndpoint: Int, CaseIterable {
         }
     }
     
-    var max: Int {
+    var color: UIColor {
         switch self {
-        case .top, .best, .new: return 500
-        case .ask, .show, .job: return 200
+        case .top:
+            return .systemGreen
+        case .best:
+            return .systemTeal
+        case .ask:
+            return .systemPurple
+        case .show:
+            return .systemPink
+        case .job:
+            return .systemGray
+        case .new:
+            return .systemIndigo
         }
     }
 }

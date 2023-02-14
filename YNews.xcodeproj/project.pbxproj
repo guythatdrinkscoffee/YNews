@@ -19,6 +19,11 @@
 		BE3853D32998212E0068EE33 /* YNCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D22998212E0068EE33 /* YNCommentCell.swift */; };
 		BE3853D82998CA070068EE33 /* YNStoryEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */; };
 		BE3B8349299C36F700B1B0E5 /* YNRootSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B8348299C36F700B1B0E5 /* YNRootSplitViewController.swift */; };
+		BE3B834C299C39F400B1B0E5 /* YNPrimaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B834B299C39F400B1B0E5 /* YNPrimaryViewController.swift */; };
+		BE3B834E299C3BDD00B1B0E5 /* YNSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B834D299C3BDD00B1B0E5 /* YNSelectionCell.swift */; };
+		BE3B8350299C3D0300B1B0E5 /* YNSelectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B834F299C3D0300B1B0E5 /* YNSelectionProtocol.swift */; };
+		BE3B8354299C3D8700B1B0E5 /* YNSelectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B8353299C3D8700B1B0E5 /* YNSelectionSection.swift */; };
+		BE3B8356299C439000B1B0E5 /* YNBookmarksEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B8355299C439000B1B0E5 /* YNBookmarksEndpoint.swift */; };
 		BED60A72299999980019CBF4 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED60A71299999980019CBF4 /* UIViewPreview.swift */; };
 		BED60A7429999ABE0019CBF4 /* YNStoryTypeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED60A7329999ABE0019CBF4 /* YNStoryTypeSelector.swift */; };
 		BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEBFB2F2995B8AE00FAD75B /* AppDelegate.swift */; };
@@ -44,6 +49,11 @@
 		BE3853D22998212E0068EE33 /* YNCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNCommentCell.swift; sourceTree = "<group>"; };
 		BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNStoryEndpoints.swift; sourceTree = "<group>"; };
 		BE3B8348299C36F700B1B0E5 /* YNRootSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNRootSplitViewController.swift; sourceTree = "<group>"; };
+		BE3B834B299C39F400B1B0E5 /* YNPrimaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNPrimaryViewController.swift; sourceTree = "<group>"; };
+		BE3B834D299C3BDD00B1B0E5 /* YNSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNSelectionCell.swift; sourceTree = "<group>"; };
+		BE3B834F299C3D0300B1B0E5 /* YNSelectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNSelectionProtocol.swift; sourceTree = "<group>"; };
+		BE3B8353299C3D8700B1B0E5 /* YNSelectionSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNSelectionSection.swift; sourceTree = "<group>"; };
+		BE3B8355299C439000B1B0E5 /* YNBookmarksEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNBookmarksEndpoint.swift; sourceTree = "<group>"; };
 		BED60A71299999980019CBF4 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		BED60A7329999ABE0019CBF4 /* YNStoryTypeSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YNStoryTypeSelector.swift; sourceTree = "<group>"; };
 		BEEBFB2C2995B8AE00FAD75B /* YNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,8 +99,11 @@
 		BE3853C32996F32A0068EE33 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BE3B8351299C3D0600B1B0E5 /* Protocols */,
 				BEEBFB4F2995CCEC00FAD75B /* YNItem.swift */,
 				BE3853D72998CA070068EE33 /* YNStoryEndpoints.swift */,
+				BE3B8353299C3D8700B1B0E5 /* YNSelectionSection.swift */,
+				BE3B8355299C439000B1B0E5 /* YNBookmarksEndpoint.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -98,11 +111,11 @@
 		BE3853C42996F3340068EE33 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				BE3B834A299C39C500B1B0E5 /* iPad */,
 				BEEBFB332995B8AE00FAD75B /* YNRootTabScreen.swift */,
 				BEEBFB472995C66B00FAD75B /* YNStoriesScreen.swift */,
 				BEEBFB492995C67A00FAD75B /* YNBookmarksScreen.swift */,
 				BE3853C72997069D0068EE33 /* YNStoryDetailScreen.swift */,
-				BE3B8348299C36F700B1B0E5 /* YNRootSplitViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -110,11 +123,13 @@
 		BE3853C52996F3410068EE33 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BE3853CB299758660068EE33 /* Utils */,
 				BE3853BF299608780068EE33 /* YNActivityIndicatorView.swift */,
 				BE3853BC299601370068EE33 /* YNItemCell.swift */,
 				BE3853C929974EDB0068EE33 /* YNTableView.swift */,
 				BE3853D22998212E0068EE33 /* YNCommentCell.swift */,
 				BED60A7329999ABE0019CBF4 /* YNStoryTypeSelector.swift */,
+				BE3B834D299C3BDD00B1B0E5 /* YNSelectionCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,6 +150,23 @@
 				BED60A71299999980019CBF4 /* UIViewPreview.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		BE3B834A299C39C500B1B0E5 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				BE3B8348299C36F700B1B0E5 /* YNRootSplitViewController.swift */,
+				BE3B834B299C39F400B1B0E5 /* YNPrimaryViewController.swift */,
+			);
+			path = iPad;
+			sourceTree = "<group>";
+		};
+		BE3B8351299C3D0600B1B0E5 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BE3B834F299C3D0300B1B0E5 /* YNSelectionProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		BEEBFB232995B8AE00FAD75B = {
@@ -162,7 +194,6 @@
 				BE3853C42996F3340068EE33 /* Screens */,
 				BE3853C62996F35C0068EE33 /* Services */,
 				BEEBFB442995B8C200FAD75B /* Support */,
-				BE3853CB299758660068EE33 /* Utils */,
 				BE3853C52996F3410068EE33 /* Views */,
 			);
 			path = YNews;
@@ -250,7 +281,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3B8354299C3D8700B1B0E5 /* YNSelectionSection.swift in Sources */,
 				BE3853B92995FF1A0068EE33 /* YNStoriesService.swift in Sources */,
+				BE3B8350299C3D0300B1B0E5 /* YNSelectionProtocol.swift in Sources */,
 				BE3853CD299758770068EE33 /* UIViewControllerPreview.swift in Sources */,
 				BEEBFB342995B8AE00FAD75B /* YNRootTabScreen.swift in Sources */,
 				BE3853C82997069D0068EE33 /* YNStoryDetailScreen.swift in Sources */,
@@ -261,13 +294,16 @@
 				BED60A7429999ABE0019CBF4 /* YNStoryTypeSelector.swift in Sources */,
 				BE3853CA29974EDB0068EE33 /* YNTableView.swift in Sources */,
 				BEEBFB482995C66B00FAD75B /* YNStoriesScreen.swift in Sources */,
+				BE3B8356299C439000B1B0E5 /* YNBookmarksEndpoint.swift in Sources */,
 				BE3853B62995D0490068EE33 /* HNewsAPI.swift in Sources */,
 				BE3853D129981B6B0068EE33 /* YNCommentsService.swift in Sources */,
 				BED60A72299999980019CBF4 /* UIViewPreview.swift in Sources */,
+				BE3B834E299C3BDD00B1B0E5 /* YNSelectionCell.swift in Sources */,
 				BEEBFB302995B8AE00FAD75B /* AppDelegate.swift in Sources */,
 				BEEBFB502995CCEC00FAD75B /* YNItem.swift in Sources */,
 				BE3853D82998CA070068EE33 /* YNStoryEndpoints.swift in Sources */,
 				BE3853D32998212E0068EE33 /* YNCommentCell.swift in Sources */,
+				BE3B834C299C39F400B1B0E5 /* YNPrimaryViewController.swift in Sources */,
 				BEEBFB322995B8AE00FAD75B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
