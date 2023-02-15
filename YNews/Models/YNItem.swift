@@ -56,7 +56,7 @@ extension YNItem {
                 data: textData,
                 options: [.documentType: NSAttributedString.DocumentType.html],
                 documentAttributes: nil)
-            attributedText?.addAttributes([.font: font], range: NSRange(location: 0, length: attributedText?.string.count ?? 0))
+            attributedText?.addAttributes([.font: font, .foregroundColor: UIColor.label ], range: NSRange(location: 0, length: attributedText?.string.count ?? 0))
             return attributedText
         }
         
