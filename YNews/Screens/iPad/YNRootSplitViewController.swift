@@ -34,6 +34,6 @@ extension YNRootSplitViewController {
     }
     
     private func makeSecondaryViewController() -> UIViewController {
-        return UIViewController()
+        return YNSecondaryViewController()
     }
 }
