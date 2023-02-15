@@ -178,7 +178,7 @@ class YNStoryDetailScreen: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        fetchComments()
+        fetchComments(story: story)
     }
 }
 
@@ -265,7 +265,7 @@ extension YNStoryDetailScreen {
         }
     }
     
-    private func fetchComments() {
+    private func fetchComments(story: YNItem) {
         guard let comments = story.kids else { return }
         
         activityIndicator.startAnimating()
@@ -294,7 +294,7 @@ extension YNStoryDetailScreen {
         comments.removeAll()
         commentsTableView.reloadData()
         setItemInfo(story: item)
-        fetchComments()
+        fetchComments(story: item)
     }
     
     private func fetchMetadata(for preview: LPLinkView, with url: URL) {
