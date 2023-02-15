@@ -68,7 +68,7 @@ extension YNSecondaryViewController {
 // MARK: - Public Methods
 extension YNSecondaryViewController {
     public func fetch(selection: YNSelection?) {
-        if let storyEnpoint = selection as? YNStoryEndpoint {
+        if let storyEnpoint = selection as? YNStoryEndpoint, storyEnpoint != currentEndpoint {
             fetch(endpoint: storyEnpoint)
         }
     }
@@ -84,8 +84,11 @@ extension YNSecondaryViewController {
         // Cancel the posts cancellable in case the state is in mid fetch
         storyCancellable?.cancel()
         
-        //
-        currentEndpoint = endpoint
+        if endpoint != currentEndpoint {
+            currentEndpoint = endpoint
+            stories.removeAll()
+            setTitle(selection: endpoint)
+        }
         
         // start the activity view indicator animation
         activityView.start()

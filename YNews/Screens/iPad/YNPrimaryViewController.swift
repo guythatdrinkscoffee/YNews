@@ -26,6 +26,7 @@ class YNPrimaryViewController: UITableViewController {
         super.viewDidLoad()
         
         // configuration
+        configureViewController()
         configureNavigationBar()
     }
 
@@ -53,6 +54,11 @@ class YNPrimaryViewController: UITableViewController {
         let selection = sections[indexPath.section].children[indexPath.row]
         return selection.withRowHeight()
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selection = sections[indexPath.section].children[indexPath.row]
+        delegate?.controller(didChangeSelection: selection)
+    }
 }
 
 
@@ -60,6 +66,10 @@ class YNPrimaryViewController: UITableViewController {
 extension YNPrimaryViewController {
     private func configureReusableCells() {
         tableView.register(YNSelectionCell.self, forCellReuseIdentifier: YNSelectionCell.reuseIdentifier)
+    }
+    
+    private func configureViewController() {
+        clearsSelectionOnViewWillAppear = false
     }
     
     private func configureNavigationBar() {

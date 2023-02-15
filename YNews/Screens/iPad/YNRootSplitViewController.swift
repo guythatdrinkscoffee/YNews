@@ -31,7 +31,7 @@ extension YNRootSplitViewController {
         ]
         
         let controller = YNPrimaryViewController(sections: selectionSections, style: .insetGrouped)
-      
+        controller.delegate = self
         return controller
     }
     
@@ -48,6 +48,13 @@ extension YNRootSplitViewController {
 
 // MARK: - YNSelectionDelegate
 extension YNRootSplitViewController: YNSelectionDelegate {
+    func controller(didChangeSelection selection: YNSelection) {
+        if let secondaryViewController = viewControllers[1] as? UINavigationController,
+           let controller = secondaryViewController.viewControllers.first as? YNSecondaryViewController {
+            controller.fetch(selection: selection)
+        }
+    }
+    
     func controller(didSelect item: YNItem) {
         if let lastViewController = viewControllers.last as? UINavigationController,
             let detailView = lastViewController.viewControllers.first as? YNStoryDetailScreen {

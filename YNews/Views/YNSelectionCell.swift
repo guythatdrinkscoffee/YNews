@@ -37,14 +37,6 @@ class YNSelectionCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        if let titleLabel = titleLabel {
-            if selected {
-                titleLabel.textColor = .white
-            } else {
-                titleLabel.textColor = .label 
-            }
-        }
     }
 }
 

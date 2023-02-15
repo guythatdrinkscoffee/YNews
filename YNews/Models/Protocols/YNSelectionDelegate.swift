@@ -9,4 +9,5 @@ import UIKit
 
 protocol YNSelectionDelegate: UIViewController {
     func controller(didSelect item: YNItem)
+    func controller(didChangeSelection selection: YNSelection) 
 }
