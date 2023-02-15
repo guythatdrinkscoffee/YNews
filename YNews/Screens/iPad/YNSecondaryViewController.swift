@@ -141,7 +141,11 @@ extension YNSecondaryViewController: UITableViewDataSource {
 
 // MARK: - UITaableViewDelegate
 extension YNSecondaryViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        
+    }
 }
 
 // MARK: - UIScrollViewDelegate

@@ -62,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func makeRootViewController() -> UIViewController {
         if UIDevice.current.userInterfaceIdiom == .pad {
-            return YNRootSplitViewController(style: .doubleColumn)
+            return YNRootSplitViewController(style: .tripleColumn)
         } else {
             return YNRootTabScreen()
         }

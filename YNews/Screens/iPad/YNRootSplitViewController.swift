@@ -21,7 +21,7 @@ class YNRootSplitViewController: UISplitViewController {
 extension YNRootSplitViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        viewControllers = [ makePrimaryViewController(), makeSecondaryViewController() ]
+        viewControllers = [ makePrimaryViewController(), makeSecondaryViewController(), makeDetailViewController()]
     }
     
     private func makePrimaryViewController() -> UIViewController {
@@ -35,5 +35,9 @@ extension YNRootSplitViewController {
     
     private func makeSecondaryViewController() -> UIViewController {
         return YNSecondaryViewController()
+    }
+    
+    private func makeDetailViewController() -> UIViewController {
+        return YNStoryDetailScreen(story: .placeholder)
     }
 }
