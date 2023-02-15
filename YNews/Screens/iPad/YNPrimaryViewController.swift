@@ -10,7 +10,7 @@ import UIKit
 class YNPrimaryViewController: UITableViewController {
     // MARK: - Properties
     private var sections: [YNSelectionSection] = []
-    
+    public weak var delegate: YNSelectionDelegate?
     // MARK: - Init
     init(sections: [YNSelectionSection], style: UITableView.Style) {
         self.sections = sections

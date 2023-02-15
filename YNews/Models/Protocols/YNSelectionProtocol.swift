@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SelectionProtocol: Any {
+protocol YNSelection: Any {
     var name: String {get}
     var image: UIImage? {get}
     var color: UIColor { get }
@@ -15,7 +15,7 @@ protocol SelectionProtocol: Any {
     func makeIconView() -> UIView
 }
 
-extension SelectionProtocol {
+extension YNSelection {
     func withRowHeight() -> CGFloat {
         return 55
     }

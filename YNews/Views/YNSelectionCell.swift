@@ -11,7 +11,7 @@ class YNSelectionCell: UITableViewCell {
     // MARK: - Properties
     static let reuseIdentifier = String(describing: YNSelectionCell.self)
     
-    private var selection: SelectionProtocol! = .none {
+    private var selection: YNSelection! = .none {
         didSet {
             configure(with: selection)
         }
@@ -50,12 +50,12 @@ class YNSelectionCell: UITableViewCell {
 
 // MARK: - Private Configuration
 extension YNSelectionCell {
-    private func configure(with selection: SelectionProtocol) {
+    private func configure(with selection: YNSelection) {
         configureIconView(for: selection)
         configureTitleLabel(for: selection)
     }
     
-    private func configureIconView(for selection: SelectionProtocol) {
+    private func configureIconView(for selection: YNSelection) {
         iconView = selection.makeIconView()
         iconView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,7 +67,7 @@ extension YNSelectionCell {
         ])
     }
     
-    private func configureTitleLabel(for selection: SelectionProtocol) {
+    private func configureTitleLabel(for selection: YNSelection) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = .preferredFont(forTextStyle: .headline)
@@ -83,7 +83,7 @@ extension YNSelectionCell {
 }
 // MARK: - Public Configuration
 extension YNSelectionCell {
-    public func set(_ selection: SelectionProtocol?) {
+    public func set(_ selection: YNSelection?) {
         guard let selection = selection else { return }
         self.selection = selection
     } 

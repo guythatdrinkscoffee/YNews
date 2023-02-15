@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum YNBookmarksEndpoint: SelectionProtocol {
+enum YNBookmarksEndpoint: YNSelection {
     case bookmarks
     
     var name: String {

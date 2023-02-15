@@ -20,7 +20,7 @@ class YNSecondaryViewController: UIViewController {
     
     private var storyCancellable: AnyCancellable?
     private var currentEndpoint: YNStoryEndpoint = .top
-    
+    public weak var delegate: YNSelectionDelegate?
     // MARK: - UI
     private lazy var storiesTableView : UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -67,13 +67,13 @@ extension YNSecondaryViewController {
 
 // MARK: - Public Methods
 extension YNSecondaryViewController {
-    public func fetch(selection: SelectionProtocol?) {
+    public func fetch(selection: YNSelection?) {
         if let storyEnpoint = selection as? YNStoryEndpoint {
             fetch(endpoint: storyEnpoint)
         }
     }
     
-    public func setTitle(selection: SelectionProtocol){
+    public func setTitle(selection: YNSelection){
         title = selection.name
     }
 }
@@ -144,7 +144,8 @@ extension YNSecondaryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        
+        let selectedStory = stories[indexPath.row]
+        delegate?.controller(didSelect: selectedStory)
     }
 }
 

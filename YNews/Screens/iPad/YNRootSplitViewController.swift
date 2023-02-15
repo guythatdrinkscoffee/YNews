@@ -30,14 +30,30 @@ extension YNRootSplitViewController {
             .init(children: [YNBookmarksEndpoint.bookmarks])
         ]
         
-        return YNPrimaryViewController(sections: selectionSections, style: .insetGrouped)
+        let controller = YNPrimaryViewController(sections: selectionSections, style: .insetGrouped)
+      
+        return controller
     }
     
     private func makeSecondaryViewController() -> UIViewController {
-        return YNSecondaryViewController()
+        let controller = YNSecondaryViewController()
+        controller.delegate = self
+        return controller
     }
     
     private func makeDetailViewController() -> UIViewController {
         return YNStoryDetailScreen(story: .placeholder)
     }
+}
+
+// MARK: - YNSelectionDelegate
+extension YNRootSplitViewController: YNSelectionDelegate {
+    func controller(didSelect item: YNItem) {
+        if let lastViewController = viewControllers.last as? UINavigationController,
+            let detailView = lastViewController.viewControllers.first as? YNStoryDetailScreen {
+            detailView.setItem(item: item)
+        }
+    }
+    
+    
 }

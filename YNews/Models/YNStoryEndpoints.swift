@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public enum YNStoryEndpoint: Int, CaseIterable, SelectionProtocol {
+public enum YNStoryEndpoint: Int, CaseIterable, YNSelection {
     static let baseUrl = URL(string: "https://hacker-news.firebaseio.com/v0")
     
     case top

@@ -8,5 +8,5 @@
 import Foundation
 
 struct YNSelectionSection {
-    var children: [SelectionProtocol]
+    var children: [YNSelection]
 }

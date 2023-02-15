@@ -123,7 +123,7 @@ class YNStoryDetailScreen: UIViewController {
     }()
     
     private lazy var infoStackView : UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [titleLabel, .horizontalSpacer(), bottomStackView, .horizontalSpacer()])
+        let sv = UIStackView(arrangedSubviews: [titleLabel, textView, .horizontalSpacer(), bottomStackView, .horizontalSpacer()])
         sv.axis = .vertical
         sv.distribution = .fill
         sv.translatesAutoresizingMaskIntoConstraints = false
@@ -172,7 +172,7 @@ class YNStoryDetailScreen: UIViewController {
         layoutCommentsTableView()
         
         // set data
-        setItemInfo()
+        setItemInfo(story: story)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -240,7 +240,7 @@ extension YNStoryDetailScreen {
 
 // MARK: - Methods
 extension YNStoryDetailScreen {
-    private func setItemInfo() {
+    private func setItemInfo(story: YNItem) {
         titleLabel.text = story.title
         scoreLabel.text = story.score?.formatted() ?? "0"
         commentsLabel.text = story.kids?.count.formatted() ?? "0"
@@ -248,24 +248,19 @@ extension YNStoryDetailScreen {
         
         let middle = (infoStackView.arrangedSubviews.count / 2) - 1
         
-        if let link = story.link {
+        if let preview = linkPreview, let link = story.link {
+            textView.isHidden = true
+            fetchMetadata(for: preview, with: link)
+        } else if let link = story.link {
             linkPreview = LPLinkView(url: link)
             infoStackView.insertArrangedSubview(linkPreview, at: middle)
             infoStackView.spacing = 20
-            
-            let provider = LPMetadataProvider()
-            provider.startFetchingMetadata(for: link) { md, err in
-                guard let md = md, err == nil else { return }
-                
-                DispatchQueue.main.async { [weak self] in
-                    self?.linkPreview.metadata = md
-                    self?.linkPreview.sizeToFit()
-                }
-            }
-            
+            textView.isHidden = true
+
+            fetchMetadata(for: linkPreview, with: link)
         } else if let text = story.getAttributedText() {
+            linkPreview.isHidden = true
             textView.attributedText = text
-            infoStackView.insertArrangedSubview(textView, at: middle)
             infoStackView.spacing = 10
         }
     }
@@ -291,6 +286,27 @@ extension YNStoryDetailScreen {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    public func setItem(item: YNItem) {
+        linkPreview.isHidden = false
+        textView.isHidden = false
+        comments.removeAll()
+        commentsTableView.reloadData()
+        setItemInfo(story: item)
+        fetchComments()
+    }
+    
+    private func fetchMetadata(for preview: LPLinkView, with url: URL) {
+        let provider = LPMetadataProvider()
+        provider.startFetchingMetadata(for: url) { md, err in
+            guard let md = md, err == nil else { return }
+            
+            DispatchQueue.main.async {
+                preview.metadata = md
+                preview.sizeToFit()
+            }
+        }
     }
 }
 
